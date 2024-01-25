@@ -3,7 +3,7 @@ export default function Landing() {
     <div className="landing">
       <div className="landing-top">
         <div className="landing__header">
-          <h1 className="landing-heading"></h1>
+          <h1 className="landing-heading">WEB DEVELOPER</h1>
           <div className="landing__img"></div>
         </div>
       </div>

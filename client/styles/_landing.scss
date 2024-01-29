@@ -1,5 +1,60 @@
 .landing{
+  position: relative;
+  z-index: 2;
   @include column-flex;
   width: 100%;
-  
+  height: 100vh;
+  padding: 1%;
+
+  &-heading{
+    font-family: $display-font;
+    font-size: 12rem;
+    color: $black;
+    word-spacing: 100vw
+  }
+
+  &-top{
+    flex-basis: 60%;
+    @include column-flex;
+    justify-content: flex-end;
+  }
+
+  &__img{
+    width: 45%;
+  }
+
+  &-img{
+    height: 20em;
+    width: 100%;
+  }
+
+  &-bottom{
+    flex-basis: 40%;
+    @include row-flex;
+    gap: 3em;
+
+    &__left{
+      flex-basis: 50%;
+      @include column-flex;
+    }
+
+    &__right{
+      flex-basis: 50%;
+      @include column-flex;
+      justify-content: flex-end;
+
+      .landing-heading{
+        text-align: right;
+      }
+    }
+  }
+
+  &__nav{
+    @include column-flex;
+    gap: 0.5em;
+    font-family: $body-font;
+    font-size: 3em;
+    list-style-type: none;
+    padding-top: 2em;
+  }
 }

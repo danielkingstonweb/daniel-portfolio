@@ -1,0 +1,26 @@
+// Row Flex
+@mixin row-flex {
+  display: flex;
+  flex-direction: row;
+}
+
+// column Flex
+@mixin column-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin center-flex{
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin display-font{
+  margin: 0;
+  font-family: $display-font;
+}
+
+@mixin subhead-font{
+  font-family: $display-font;
+  font-size: 3em;
+}

@@ -1,0 +1,32 @@
+.landing-bg{
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  @include row-flex;
+  @include center-flex;
+  z-index: 0;
+
+  .landing-img-box{
+    height: 100vh;
+    width: 100%;
+  }
+  
+  svg{
+    height: 100%;
+    width: 100%;
+  }
+
+  .svg-shape {
+    // height: 50%;
+    //   width: 50%;
+    visibility: hidden;
+    
+    &.st0 {
+      visibility: visible;
+    }
+  }
+
+  // #blue, #orange, #purple{
+  //   visibility:hidden;
+  // }
+}

@@ -10,42 +10,50 @@ export default function Landing() {
   const ease = 'elastic.out(1,0.2)'
 
   const landingTL = gsap.timeline({ repeat: -1 })
-  // const shapeOne = document.getElementsByClassName('st0')
+  // Landing Page Animation Targets
+  // Background
+  const shapeOne = document.querySelector('.st0')!
+  const shapeTwo = document.querySelector('.st1')!
+  const shapeThree = document.querySelector('.st2')!
+  const shapeFour = document.querySelector('.st3')!
+
+  // Landing Content
+  
   landingTL
-    .to('.st0', {
+    .to(shapeOne, {
       duration: duration,
       morphSVG: {
-        shape: '.st1',
+        shape: shapeTwo,
         type: 'rotational',
       },
       delay,
       ease: ease,
       fill: '#FE7272',
     })
-    .to('.st0', {
+    .to(shapeOne, {
       duration: duration,
       morphSVG: {
-        shape: '.st2',
+        shape: shapeThree,
         type: 'rotational',
       },
       delay,
       ease: ease,
       fill: '#72CBFE',
     })
-    .to('.st0', {
+    .to(shapeOne, {
       duration: duration,
       morphSVG: {
-        shape: '.st3',
+        shape: shapeFour,
         type: 'rotational',
       },
       delay,
       ease: ease,
       fill: '#B072FE',
     })
-    .to('.st0', {
+    .to(shapeOne, {
       duration: duration,
       morphSVG: {
-        shape: '.st0',
+        shape: shapeOne,
         type: 'rotational',
       },
       delay,
@@ -69,10 +77,10 @@ export default function Landing() {
             xmlSpace="preserve"
           >
             <defs>
-              {/* <!-- 		<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-			<stop offset="0%" stop-color="#1F2F53" />
-			<stop offset="100%" stop-color="#5C258D" />
-		</linearGradient> --> */}
+              {/* <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+			<stop offset="0%" stopColor="#1F2F53" />
+			<stop offset="100%" stopColor="#5C258D" />
+		</linearGradient> */}
             </defs>
             <path
               id="blue"
@@ -153,7 +161,8 @@ export default function Landing() {
       <div className="landing">
         <div className="landing-top">
           <div className="landing__header">
-            <h1 className="landing-heading">WEB DEVELOPER</h1>
+            <h1 className="landing-heading">WEB</h1>
+            <h1 className="landing-heading">DEVELOPER</h1>
             <div className="landing__img">
               <img
                 className="landing-img"

@@ -3,13 +3,13 @@ import { MorphSVGPlugin } from 'gsap-trial/MorphSVGPlugin'
 import { ScrollSmoother } from 'gsap-trial/ScrollSmoother'
 import { ScrambleTextPlugin } from 'gsap-trial/ScrambleTextPlugin'
 import { useEffect, useRef } from 'react'
-import { useGSAP } from "@gsap/react"
+import { useGSAP } from '@gsap/react'
 import { Link } from 'react-router-dom'
 
 gsap.registerPlugin(ScrollSmoother, MorphSVGPlugin, ScrambleTextPlugin)
 
 export default function Landing() {
-  // React Variables
+  // React Variables for Animation
   const shape1 = useRef(null)
   const shape2 = useRef(null)
   const shape3 = useRef(null)
@@ -22,13 +22,8 @@ export default function Landing() {
   const ease = 'elastic.out(1,0.2)'
 
   const landingTL = gsap.timeline({ repeat: -1 })
-  // Landing Page Animation Targets
-  // Landing Content
 
-  // const headingUpper = document.getElementById('landingHeadingTop')
-  // const headingLower = document.getElementById('landingHeadingBottom')
-
-  useEffect(() => {
+  useGSAP(() => {
     landingTL
       .to(shape1.current, {
         duration: duration,

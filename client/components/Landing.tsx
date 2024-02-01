@@ -5,6 +5,7 @@ import { ScrambleTextPlugin } from 'gsap-trial/ScrambleTextPlugin'
 import { useEffect, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { Link } from 'react-router-dom'
+import Nav from './Nav'
 
 gsap.registerPlugin(ScrollSmoother, MorphSVGPlugin, ScrambleTextPlugin)
 
@@ -125,6 +126,7 @@ export default function Landing() {
 
   return (
     <>
+      <Nav />
       <div className="landing-bg">
         <div className="landing-img-box">
           <svg

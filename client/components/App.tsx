@@ -6,9 +6,9 @@ function App() {
 
   return (
     <>
-      <main>
-        <Outlet />
-      </main>
+      {/* <main> */}
+      <Outlet />
+      {/* </main> */}
     </>
   )
 }

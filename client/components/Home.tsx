@@ -1,60 +1,131 @@
-import { gsap } from 'gsap-trial'
-import { MorphSVGPlugin } from 'gsap-trial/MorphSVGPlugin'
-import { ScrollSmoother } from 'gsap-trial/ScrollSmoother'
+import { gsap } from 'gsap'
+import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin'
+import { useEffect, useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import { Link } from 'react-router-dom'
+import Nav from './Nav'
 
-gsap.registerPlugin(ScrollSmoother, MorphSVGPlugin)
+gsap.registerPlugin(MorphSVGPlugin, ScrambleTextPlugin)
 
-export default function Landing() {
+export default function Home() {
+  // React Variables for Animation
+  const shape1 = useRef(null)
+  const shape2 = useRef(null)
+  const shape3 = useRef(null)
+  const shape4 = useRef(null)
+  const headingUpper = useRef(null)
+  const headingLower = useRef(null)
+
   const duration = 2.5
-  const delay = 1.5
+  // const delay = 1.5
   const ease = 'elastic.out(1,0.2)'
 
   const landingTL = gsap.timeline({ repeat: -1 })
-  // const shapeOne = document.getElementsByClassName('st0')
-  landingTL
-    .to('.st0', {
-      duration: duration,
-      morphSVG: {
-        shape: '.st1',
-        type: 'rotational',
-      },
-      delay,
-      ease: ease,
-      fill: '#FE7272',
-    })
-    .to('.st0', {
-      duration: duration,
-      morphSVG: {
-        shape: '.st2',
-        type: 'rotational',
-      },
-      delay,
-      ease: ease,
-      fill: '#72CBFE',
-    })
-    .to('.st0', {
-      duration: duration,
-      morphSVG: {
-        shape: '.st3',
-        type: 'rotational',
-      },
-      delay,
-      ease: ease,
-      fill: '#B072FE',
-    })
-    .to('.st0', {
-      duration: duration,
-      morphSVG: {
-        shape: '.st0',
-        type: 'rotational',
-      },
-      delay,
-      ease: ease,
-      fill: '#FEC572',
-    })
+
+  useGSAP(() => {
+    landingTL
+      .to(shape1.current, {
+        duration: duration,
+        morphSVG: {
+          shape: '.st1',
+          type: 'rotational',
+        },
+        // delay,
+        ease: ease,
+        fill: '#FE7272',
+      })
+      .to(
+        headingLower.current,
+        {
+          duration: duration,
+          scrambleText: {
+            text: 'DESIGNER',
+          },
+          // delay,
+        },
+        '<',
+      )
+      .to(shape1.current, {
+        duration: duration,
+        morphSVG: {
+          shape: '.st2',
+          type: 'rotational',
+        },
+        // delay,
+        ease: ease,
+        fill: '#72CBFE',
+      })
+      .to(
+        headingUpper.current,
+        {
+          duration: duration,
+          scrambleText: 'GRAPHIC',
+          // delay,
+        },
+        '<',
+      )
+      .to(shape1.current, {
+        duration: duration,
+        morphSVG: {
+          shape: '.st3',
+          type: 'rotational',
+        },
+        // delay,
+        ease: ease,
+        fill: '#B072FE',
+      })
+      .to(
+        headingLower.current,
+        {
+          duration: duration,
+          scrambleText: 'PHOTOGRAPHER',
+          // delay,
+        },
+        '<',
+      )
+      .to(
+        headingUpper.current,
+        {
+          duration: duration,
+          scrambleText: '    ',
+          // delay,
+        },
+        '<',
+      )
+      .to(shape1.current, {
+        duration: duration,
+        morphSVG: {
+          shape: '.st0',
+          type: 'rotational',
+        },
+        // delay,
+        ease: ease,
+        fill: '#FEC572',
+      })
+      .to(
+        headingLower.current,
+        {
+          duration: duration,
+          scrambleText: 'DEVELOPER',
+          // delay,
+        },
+        '<',
+      )
+      .to(
+        headingUpper.current,
+        {
+          duration: duration,
+          scrambleText: 'WEB',
+          // delay,
+        },
+        '<',
+      )
+  })
 
   return (
     <>
+      <Nav />
       <div className="landing-bg">
         <div className="landing-img-box">
           <svg
@@ -69,16 +140,37 @@ export default function Landing() {
             xmlSpace="preserve"
           >
             <defs>
-              {/* <!-- 		<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-			<stop offset="0%" stop-color="#1F2F53" />
-			<stop offset="100%" stop-color="#5C258D" />
-		</linearGradient> --> */}
+              <linearGradient id="bruh" x1="100%" y1="100%">
+                <stop offset="0%" stopColor="lightblue" stopOpacity=".5">
+                  <animate
+                    attributeName="stop-color"
+                    values="lightblue;blue;red;red;black;red;red;purple;lightblue"
+                    dur="14s"
+                    repeatCount="indefinite"
+                  />
+                </stop>
+                <stop offset="100%" stopColor="lightblue" stopOpacity=".5">
+                  <animate
+                    attributeName="stopColor"
+                    values="lightblue;orange;purple;purple;black;purple;purple;blue;lightblue"
+                    dur="14s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="offset"
+                    values=".95;.80;.60;.40;.20;0;.20;.40;.60;.80;.95"
+                    dur="14s"
+                    repeatCount="indefinite"
+                  />
+                </stop>
+              </linearGradient>
             </defs>
             <path
               id="blue"
               className="svg-shape st0"
               fill="#FEC572"
-              stroke="url(#gradient)"
+              // fill="url(#bruh)"
+              ref={shape1}
               strokeWidth="5"
               strokeMiterlimit="10"
               d="M378.01,12.31c37.9,1.87,74.04,4.55,108.97,15.33c23.58,7.28,43.74,20.99,63.04,35.9
@@ -99,6 +191,7 @@ export default function Landing() {
               id="purple"
               className="svg-shape st1"
               fill="none"
+              ref={shape2}
               d="M600.03,130.47c-0.92,24.12-2.63,49.73-2.66,75.36c-0.04,26.64,1.07,53.37,14.12,77.78
 	c14.96,27.98,41.81,41.94,73.76,39.02c29.14-2.66,55.86-13.31,82.78-23.45c24.91-9.38,49.47-19.85,75.92-24.36
 	c18.22-3.11,36.25-3.21,52.93,6.34c13.72,7.86,24.27,18.34,25.55,35.22c0.84,11.02-2.64,21.27-8.35,30.34
@@ -118,6 +211,7 @@ export default function Landing() {
               id="orange"
               className="svg-shape st2"
               fill="none"
+              ref={shape3}
               d="M346.67,823.99c-37.56-0.6-66.62-2.94-95.07-10.99c-31.86-9.01-59.3-26.17-85.37-45.74
 	c-39.27-29.48-72.7-64.44-97.53-107.13c-17.78-30.56-29.45-63.19-34.15-98.38c-5.83-43.65-0.96-86.27,11.17-128.26
 	c12.46-43.16,32.5-82.55,58.98-118.84c20.02-27.43,46.81-45.31,78.41-55.98c24.41-8.24,49.39-14.8,74.12-22.11
@@ -133,6 +227,7 @@ export default function Landing() {
               id="red"
               className="svg-shape st3"
               fill="none"
+              ref={shape4}
               d="M11.46,299.15c-0.12-29.41,5.85-53.7,22.39-74.69c17.01-21.59,39.98-33.06,66.18-39.07
 	c20.7-4.74,41.77-6.1,62.91-7.06c25.77-1.16,51.57-2.17,77.29-4.16c20.31-1.57,40.1-6.21,58.94-14.29
 	c16.79-7.2,28.3-20.29,38.07-35.03c9.65-14.58,18.31-29.84,28.35-44.13c5.87-8.36,12.78-16.42,20.67-22.83
@@ -153,7 +248,20 @@ export default function Landing() {
       <div className="landing">
         <div className="landing-top">
           <div className="landing__header">
-            <h1 className="landing-heading">WEB DEVELOPER</h1>
+            <h1
+              ref={headingUpper}
+              id="landingHeadingTop"
+              className="landing-heading"
+            >
+              WEB
+            </h1>
+            <h1
+              ref={headingLower}
+              id="landingHeadingBottom"
+              className="landing-heading"
+            >
+              DEVELOPER
+            </h1>
             <div className="landing__img">
               <img
                 className="landing-img"
@@ -166,10 +274,18 @@ export default function Landing() {
         <div className="landing-bottom">
           <div className="landing-bottom__left">
             <ul className="landing__nav">
-              <li className="landing-nav-item">DEV | DESIGN WORK</li>
-              <li className="landing-nav-item">PHOTOGRAPHY</li>
-              <li className="landing-nav-item">GET IN TOUCH</li>
-              <li className="landing-nav-item">ABOUT</li>
+              <Link to="Work">
+                <li className="landing-nav-item">DEV | DESIGN WORK</li>
+              </Link>
+              <Link to="Photography">
+                <li className="landing-nav-item">PHOTOGRAPHY</li>
+              </Link>
+              <Link to="Contact">
+                <li className="landing-nav-item">GET IN TOUCH</li>
+              </Link>
+              <Link to="">
+                <li className="landing-nav-item">ABOUT</li>
+              </Link>
             </ul>
           </div>
           <div className="landing-bottom__right">

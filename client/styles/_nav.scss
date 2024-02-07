@@ -1,0 +1,91 @@
+.nav{
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  z-index: 1000;
+  padding: 5em;
+  @include row-flex;
+  justify-content: space-between;
+  display: none;
+
+  &-bg{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: 999;
+    background: $orange;
+    -webkit-filter: blur(5px);
+    display: none;
+
+    svg{
+      height: 100%;
+      width: 100%;
+    }
+  
+    .svg-shape {
+      // height: 50%;
+      //   width: 50%;
+      visibility: hidden;
+      
+      &.st0 {
+        visibility: visible;
+      }
+    }
+  }
+
+
+  &__left{
+    @include column-flex;
+    @include center-flex;
+  }
+
+  &__items{
+    @include column-flex;
+    gap: 0.5em;
+    font-family: $display-font;
+    font-size: 10em;
+  }
+
+  &__item{
+    list-style-type: none;
+  }
+
+  &-item{
+    list-style-type: none;
+    color: $black;
+  }
+
+  &-under{
+    width: 100%;
+    height: 1px;
+    background: none;
+  }
+
+  // .active {
+  //   color: $white;
+  // }
+
+
+}
+
+// background: linear-gradient(
+//   -83deg,
+//   $orange,
+//   $red,
+//   $purple,
+//   $blue,
+// );
+// background-size: 200% 200%;
+// animation: gradient 12s ease-in-out infinite;
+// opacity: 100%;
+// @keyframes gradient {
+//   0% {
+//     background-position: 0% 50%;
+//   }
+//   50% {
+//     background-position: 100% 50%;
+//   }
+//   100% {
+//     background-position: 0% 50%;
+//   }
+// }

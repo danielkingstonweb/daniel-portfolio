@@ -26,8 +26,9 @@
     ]
   },
   "dependencies": {
+    "@gsap/react": "^2.1.0",
     "express": "^4.17.2",
-    "gsap-trial": "^3.12.5",
+    "gsap": "npm:@gsap/shockingly@^3.12.5",
     "knex": "^2.5.1",
     "sqlite3": "^5.1.6",
     "superagent": "7.1.1"

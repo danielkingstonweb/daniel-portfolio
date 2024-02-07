@@ -1,4 +1,4 @@
-export interface Work {
+export interface DesWork {
   id: number
   title: string
   links: string

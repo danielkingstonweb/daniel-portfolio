@@ -12,7 +12,8 @@ export async function seed(knex) {
       field: 'Web/UX Design,Front-End Development,Back-End Development',
       tools:
         'HTML,CSS(Sass),JS,jQuery,Gulp,MongoDB,Postman,nodeJS,Figma,Adobe Suite',
-      images: '',
+      images:
+        'client/images/earthenwares/clear1.png,client/images/earthenwares/clear2.png,client/images/earthenwares/clear3.png',
     },
     {
       title: `Ms Johnson's`,
@@ -57,7 +58,8 @@ export async function seed(knex) {
       description: `This is a table-side ordering system designed for Dirty Burger. At it's core this is a design project based much more in the frontend with limited actual functionality. It is designed for an iPad pro 12.9". Please note that this is not a real client of mine but a project completed while studying. The Timeline for this project was One Week.`,
       field: 'Web/UX Design,Front-End Development',
       tools: 'HTML,CSS(Sass),JS,jQuery,Figma,Adobe Suite',
-      images: '',
+      images:
+        'client/images/dirtyburger/clear1.png,client/images/dirtyburger/clear2.png,client/images/dirtyburger/clear3.png,client/images/dirtyburger/clear4.pngclient/images/dirtyburger/designOutline.png',
     },
     {
       title: `Rites of Passage`,

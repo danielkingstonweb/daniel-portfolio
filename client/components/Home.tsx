@@ -1,15 +1,14 @@
-import { gsap } from 'gsap-trial'
-import { MorphSVGPlugin } from 'gsap-trial/MorphSVGPlugin'
-import { ScrollSmoother } from 'gsap-trial/ScrollSmoother'
-import { ScrambleTextPlugin } from 'gsap-trial/ScrambleTextPlugin'
+import { gsap } from 'gsap'
+import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin'
 import { useEffect, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
 
-gsap.registerPlugin(ScrollSmoother, MorphSVGPlugin, ScrambleTextPlugin)
+gsap.registerPlugin(MorphSVGPlugin, ScrambleTextPlugin)
 
-export default function Landing() {
+export default function Home() {
   // React Variables for Animation
   const shape1 = useRef(null)
   const shape2 = useRef(null)
@@ -278,10 +277,10 @@ export default function Landing() {
               <Link to="Work">
                 <li className="landing-nav-item">DEV | DESIGN WORK</li>
               </Link>
-              <Link to="">
+              <Link to="Photography">
                 <li className="landing-nav-item">PHOTOGRAPHY</li>
               </Link>
-              <Link to="">
+              <Link to="Contact">
                 <li className="landing-nav-item">GET IN TOUCH</li>
               </Link>
               <Link to="">

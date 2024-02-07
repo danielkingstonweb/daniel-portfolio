@@ -6,6 +6,7 @@
   padding: 5em;
   @include row-flex;
   justify-content: space-between;
+  display: none;
 
   &-bg{
     width: 100%;
@@ -14,6 +15,7 @@
     z-index: 999;
     background: $orange;
     -webkit-filter: blur(5px);
+    display: none;
 
     svg{
       height: 100%;
@@ -44,14 +46,24 @@
     font-size: 10em;
   }
 
+  &__item{
+    list-style-type: none;
+  }
+
   &-item{
     list-style-type: none;
     color: $black;
   }
 
-  .active {
-    color: $white;
+  &-under{
+    width: 100%;
+    height: 1px;
+    background: none;
   }
+
+  // .active {
+  //   color: $white;
+  // }
 
 
 }

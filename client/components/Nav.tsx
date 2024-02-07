@@ -14,6 +14,10 @@ export default function Nav() {
   const link4 = useRef(null)
   const shape1 = useRef(null)
   const navBG = useRef(null)
+  const under1 = useRef(null)
+  const under2 = useRef(null)
+  const under3 = useRef(null)
+  const under4 = useRef(null)
 
   const duration = 0.5
   const ease = 'elastic.out(1,0.2)'
@@ -22,20 +26,18 @@ export default function Nav() {
   const navTLWork = gsap.timeline()
   const navTLPhot = gsap.timeline()
   const navTLCont = gsap.timeline()
-  // navTLHome.pause()
-  // navTLWork.pause()
-  // navTLPhot.pause()
-  // navTLCont.pause()
 
   const { contextSafe } = useGSAP()
 
   const onMouseEnterHome = contextSafe(({ currentTarget }) => {
-    console.log('working')
-
     // HOME HOVER LINK ANIMATION
     navTLHome.to(currentTarget, {
       // duration,
       // color: 'red',
+      scrambleText: {
+        text: 'HOME',
+      },
+      color: COLORS.white,
     })
     // HOME HOVER BG ANIMATION
     navTLHome.to(
@@ -62,14 +64,26 @@ export default function Nav() {
     )
   })
 
-  // const onMouseLeaveHome = () => {
-  //   navTLHome.reverse()
-  // }
+  const onMouseLeaveHome = contextSafe(({ currentTarget }) => {
+    navTLHome.to(currentTarget, {
+      // duration,
+      // color: 'red',
+      scrambleText: {
+        text: 'HOME',
+      },
+      color: COLORS.black,
+    })
+  })
 
   const onMouseEnterWork = contextSafe(({ currentTarget }) => {
     navTLWork.to(currentTarget, {
       // duration,
       // color: 'red',
+      scrambleText: {
+        text: 'DEV | DESIGN',
+      },
+
+      color: COLORS.white,
     })
     // WORK HOVER BG ANIMATION
     navTLWork.to(
@@ -95,14 +109,25 @@ export default function Nav() {
     )
   })
 
-  // const onMouseLeaveWork = () => {
-  //   navTLWork.reverse()
-  // }
+  const onMouseLeaveWork = contextSafe(({ currentTarget }) => {
+    navTLPhot.to(currentTarget, {
+      // duration,
+      // color: 'red',
+      scrambleText: {
+        text: 'DEV | DESIGN',
+      },
+      color: COLORS.black,
+    })
+  })
 
   const onMouseEnterPhot = contextSafe(({ currentTarget }) => {
     navTLPhot.to(currentTarget, {
       // duration,
       // color: 'red',
+      scrambleText: {
+        text: 'PHOTOGRAPHY',
+      },
+      color: COLORS.white,
     })
     // PHOTOGRAPHY HOVER BG ANIMATION
     navTLPhot.to(
@@ -128,14 +153,25 @@ export default function Nav() {
     )
   })
 
-  // const onMouseLeavePhot = () => {
-  //   navTLPhot.reverse()
-  // }
+  const onMouseLeavePhot = contextSafe(({ currentTarget }) => {
+    navTLPhot.to(currentTarget, {
+      // duration,
+      // color: 'red',
+      scrambleText: {
+        text: 'PHOTOGRAPHY',
+      },
+      color: COLORS.black,
+    })
+  })
 
   const onMouseEnterCont = contextSafe(({ currentTarget }) => {
     navTLCont.to(currentTarget, {
       // duration,
       // color: 'red',
+      scrambleText: {
+        text: 'CONTACT',
+      },
+      color: COLORS.white,
     })
     // CONTACT HOVER BG ANIMATION
     navTLCont.to(
@@ -161,9 +197,16 @@ export default function Nav() {
     )
   })
 
-  // const onMouseLeaveCont = () => {
-  //   navTLCont.reverse()
-  // }
+  const onMouseLeaveCont = contextSafe(({ currentTarget }) => {
+    navTLCont.to(currentTarget, {
+      // duration,
+      // color: 'red',
+      scrambleText: {
+        text: 'CONTACT',
+      },
+      color: COLORS.black,
+    })
+  })
 
   return (
     <>
@@ -291,42 +334,54 @@ export default function Nav() {
       <nav className="nav">
         <div className="nav__left">
           <ul className="nav__items">
-            <NavLink
-              onMouseEnter={onMouseEnterHome}
-              // onMouseLeave={onMouseLeaveHome}
-              ref={link1}
-              to="/"
-              className="nav-item"
-            >
-              HOME
-            </NavLink>
-            <NavLink
-              onMouseEnter={onMouseEnterWork}
-              // onMouseLeave={onMouseLeaveWork}
-              ref={link2}
-              className="nav-item"
-              to="/Work"
-            >
-              DEV | DESIGN
-            </NavLink>
-            <NavLink
-              onMouseEnter={onMouseEnterPhot}
-              // onMouseLeave={onMouseLeavePhot}
-              ref={link3}
-              className="nav-item"
-              to="/Photography"
-            >
-              PHOTOGRAPHY
-            </NavLink>
-            <NavLink
-              onMouseEnter={onMouseEnterCont}
-              // onMouseLeave={onMouseLeaveCont}
-              ref={link4}
-              className="nav-item"
-              to="/Contact"
-            >
-              CONTACT
-            </NavLink>
+            <li className="nav__item">
+              <NavLink
+                onMouseEnter={onMouseEnterHome}
+                onMouseLeave={onMouseLeaveHome}
+                ref={link1}
+                to="/"
+                className="nav-item"
+              >
+                HOME
+              </NavLink>
+              {/* <div ref={under1} className="nav-under"></div> */}
+            </li>
+            <li className="nav__item">
+              <NavLink
+                onMouseEnter={onMouseEnterWork}
+                onMouseLeave={onMouseLeaveWork}
+                ref={link2}
+                className="nav-item"
+                to="/Work"
+              >
+                DEV | DESIGN
+              </NavLink>
+              {/* <div ref={under2} className="nav-under"></div> */}
+            </li>
+            <li className="nav__item">
+              <NavLink
+                onMouseEnter={onMouseEnterPhot}
+                onMouseLeave={onMouseLeavePhot}
+                ref={link3}
+                className="nav-item"
+                to="/Photography"
+              >
+                PHOTOGRAPHY
+              </NavLink>
+              {/* <div ref={under3} className="nav-under"></div> */}
+            </li>
+            <li className="nav__item">
+              <NavLink
+                onMouseEnter={onMouseEnterCont}
+                onMouseLeave={onMouseLeaveCont}
+                ref={link4}
+                className="nav-item"
+                to="/Contact"
+              >
+                CONTACT
+              </NavLink>
+              {/* <div ref={under4} className="nav-under"></div> */}
+            </li>
           </ul>
         </div>
         <div className="nav__right"></div>

@@ -6,7 +6,53 @@
   padding: 5em;
   @include row-flex;
   justify-content: space-between;
-  display: none;
+  // display: none;
+
+  &-bar{
+    position: fixed;
+    height: 10vh;
+    width: 100%;
+    // background: $black;
+    @include row-flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0em 2em 0em 2em;
+    z-index: 9999;
+  }
+
+  &__hamburger{
+    // background: $white;
+    position: relative;
+    width: 8em;
+    cursor: pointer;
+    @include column-flex;
+    @include center-flex;
+
+    svg{
+      height: 100%;
+      width: 100%;
+    }
+
+    .svg-shape{
+      visibility: hidden;
+
+      &.ham-11 {
+        visibility: visible;
+      }
+
+      &.ham-12 {
+        visibility: visible;
+      }
+
+      &.ham-13 {
+        visibility: visible;
+      }
+    }
+
+
+  }
+
+
 
   &-bg{
     width: 100%;
@@ -15,7 +61,7 @@
     z-index: 999;
     background: $orange;
     -webkit-filter: blur(5px);
-    display: none;
+    // display: none;
 
     svg{
       height: 100%;

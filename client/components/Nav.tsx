@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
@@ -7,6 +7,9 @@ import { COLORS } from './Values'
 gsap.registerPlugin(MorphSVGPlugin)
 
 export default function Nav() {
+  // Setting state for Hamburger Toggle
+  const [isClicked, setIsClicked] = useState(false)
+
   // Reference Variables
   const link1 = useRef(null)
   const link2 = useRef(null)
@@ -14,24 +17,66 @@ export default function Nav() {
   const link4 = useRef(null)
   const shape1 = useRef(null)
   const navBG = useRef(null)
-  const under1 = useRef(null)
-  const under2 = useRef(null)
-  const under3 = useRef(null)
-  const under4 = useRef(null)
-
+  const hamToggle = useRef(null)
+  const hamShape1 = useRef(null)
+  const hamShape2 = useRef(null)
+  const hamShape3 = useRef(null)
+  const hamTL = useRef()
+  const toggleContainer = useRef(null)
   const duration = 0.5
   const ease = 'elastic.out(1,0.2)'
 
-  const navTLHome = gsap.timeline()
-  const navTLWork = gsap.timeline()
-  const navTLPhot = gsap.timeline()
-  const navTLCont = gsap.timeline()
+  // Word effects timelines
+  const navTLHome = useRef()
+  const navTLWork = useRef()
+  const navTLPhot = useRef()
+  const navTLCont = useRef()
 
-  const { contextSafe } = useGSAP()
+  // const { contextSafe } = useGSAP()
+
+  const { contextSafe } = useGSAP(
+    () => {
+      hamTL.current = gsap
+        .timeline()
+        .to(hamShape1.current, {
+          morphSVG: {
+            shape: '.ham-01',
+            type: 'rotational',
+          },
+        })
+        .to(
+          hamShape2.current,
+          {
+            morphSVG: {
+              shape: '.ham-02',
+              type: 'rotational',
+            },
+          },
+          '<',
+        )
+        .to(
+          hamShape3.current,
+          {
+            morphSVG: {
+              shape: '.ham-03',
+              type: 'rotational',
+            },
+          },
+          '<',
+        )
+    },
+    { scope: toggleContainer },
+  )
+
+  const timelineToggle = contextSafe(() => {
+    console.log('clicky')
+
+    hamTL.current.reversed(!hamTL.current.reversed())
+  })
 
   const onMouseEnterHome = contextSafe(({ currentTarget }) => {
     // HOME HOVER LINK ANIMATION
-    navTLHome.to(currentTarget, {
+    navTLHome.current = gsap.timeline().to(currentTarget, {
       // duration,
       // color: 'red',
       scrambleText: {
@@ -40,7 +85,7 @@ export default function Nav() {
       color: COLORS.white,
     })
     // HOME HOVER BG ANIMATION
-    navTLHome.to(
+    navTLHome.current.to(
       navBG.current,
       {
         // duration,
@@ -50,7 +95,7 @@ export default function Nav() {
     )
 
     // HOME HOVER SHAPE ANIMATION
-    navTLHome.to(
+    navTLHome.current.to(
       shape1.current,
       {
         morphSVG: {
@@ -65,7 +110,7 @@ export default function Nav() {
   })
 
   const onMouseLeaveHome = contextSafe(({ currentTarget }) => {
-    navTLHome.to(currentTarget, {
+    navTLHome.current.to(currentTarget, {
       // duration,
       // color: 'red',
       scrambleText: {
@@ -76,7 +121,7 @@ export default function Nav() {
   })
 
   const onMouseEnterWork = contextSafe(({ currentTarget }) => {
-    navTLWork.to(currentTarget, {
+    navTLWork.current = gsap.timeline().to(currentTarget, {
       // duration,
       // color: 'red',
       scrambleText: {
@@ -86,7 +131,7 @@ export default function Nav() {
       color: COLORS.white,
     })
     // WORK HOVER BG ANIMATION
-    navTLWork.to(
+    navTLWork.current.to(
       navBG.current,
       {
         // duration,
@@ -95,7 +140,7 @@ export default function Nav() {
       '<',
     )
     // WORK HOVER SHAPE ANIMATION
-    navTLWork.to(
+    navTLWork.current.to(
       shape1.current,
       {
         morphSVG: {
@@ -110,7 +155,7 @@ export default function Nav() {
   })
 
   const onMouseLeaveWork = contextSafe(({ currentTarget }) => {
-    navTLPhot.to(currentTarget, {
+    navTLWork.current.to(currentTarget, {
       // duration,
       // color: 'red',
       scrambleText: {
@@ -121,7 +166,7 @@ export default function Nav() {
   })
 
   const onMouseEnterPhot = contextSafe(({ currentTarget }) => {
-    navTLPhot.to(currentTarget, {
+    navTLPhot.current = gsap.timeline().to(currentTarget, {
       // duration,
       // color: 'red',
       scrambleText: {
@@ -130,7 +175,7 @@ export default function Nav() {
       color: COLORS.white,
     })
     // PHOTOGRAPHY HOVER BG ANIMATION
-    navTLPhot.to(
+    navTLPhot.current.to(
       navBG.current,
       {
         // duration,
@@ -139,7 +184,7 @@ export default function Nav() {
       '<',
     )
     // PHOTOGRAPHY HOVER SHAPE ANIMATION
-    navTLPhot.to(
+    navTLPhot.current.to(
       shape1.current,
       {
         morphSVG: {
@@ -154,7 +199,7 @@ export default function Nav() {
   })
 
   const onMouseLeavePhot = contextSafe(({ currentTarget }) => {
-    navTLPhot.to(currentTarget, {
+    navTLPhot.current.to(currentTarget, {
       // duration,
       // color: 'red',
       scrambleText: {
@@ -165,7 +210,7 @@ export default function Nav() {
   })
 
   const onMouseEnterCont = contextSafe(({ currentTarget }) => {
-    navTLCont.to(currentTarget, {
+    navTLCont.current = gsap.timeline().to(currentTarget, {
       // duration,
       // color: 'red',
       scrambleText: {
@@ -174,7 +219,7 @@ export default function Nav() {
       color: COLORS.white,
     })
     // CONTACT HOVER BG ANIMATION
-    navTLCont.to(
+    navTLCont.current.to(
       navBG.current,
       {
         // duration,
@@ -183,7 +228,7 @@ export default function Nav() {
       '<',
     )
     // CONTACT HOVER SHAPE ANIMATION
-    navTLCont.to(
+    navTLCont.current.to(
       shape1.current,
       {
         morphSVG: {
@@ -198,7 +243,7 @@ export default function Nav() {
   })
 
   const onMouseLeaveCont = contextSafe(({ currentTarget }) => {
-    navTLCont.to(currentTarget, {
+    navTLCont.current.to(currentTarget, {
       // duration,
       // color: 'red',
       scrambleText: {
@@ -210,9 +255,102 @@ export default function Nav() {
 
   return (
     <>
-      <div className="nav-toggle">
+      <div ref={toggleContainer} className="nav-bar">
         <div className="nav__logo"></div>
-        <div className="nav-click"></div>
+        <div className="nav-toggle" id="navToggle">
+          <div onClick={timelineToggle} className="nav__hamburger">
+            <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              // xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 723.25 721.75"
+              // style="enable-background:new 0 0 723.25 721.75;"
+              xmlSpace="preserve"
+            >
+              <g id="Active">
+                <g>
+                  <path
+                    className="svg-shape ham-01"
+                    d="M709.17,357.7c-2.38,146.67-97.22,330.66-257.41,347.09C226.14,727.27,6.3,519.87,15.82,292.18
+			c1.58-24.84,6.63-48.33,14.65-70.32C80.09,88.84,227.77,18.1,364.6,15.46c194.34-5.84,344.18,131.76,344.57,342L709.17,357.7z
+			 M382.14,33.75C236.85,37.6,47.06,126.53,34.95,288.56c-1.96,32.5,4.18,65.52,11.62,96.97
+			c43.25,175.99,217.32,312.54,399.29,299.14c18.39-1.61,37.35-6.71,54.57-14.19C793.09,544.25,725.34,25.46,382.35,33.75
+			L382.14,33.75z"
+                  />
+                  <g>
+                    <g>
+                      <g>
+                        <path
+                          className="svg-shape ham-02"
+                          d="M182.5,195.17c11.49,11.49,22.97,22.97,34.46,34.46c27.57,27.57,55.15,55.15,82.72,82.72
+						c33.22,33.22,66.43,66.43,99.65,99.65c28.71,28.71,57.43,57.43,86.14,86.14c13.96,13.96,27.56,28.46,41.97,41.97
+						c0.21,0.2,0.41,0.41,0.61,0.61c9.11,9.11,23.26-5.03,14.14-14.14c-11.49-11.49-22.97-22.97-34.46-34.46
+						c-27.57-27.57-55.15-55.15-82.72-82.72c-33.22-33.22-66.43-66.43-99.65-99.65c-28.71-28.71-57.43-57.43-86.14-86.14
+						c-13.96-13.96-27.56-28.46-41.97-41.97c-0.21-0.2-0.41-0.41-0.61-0.61C187.53,171.92,173.39,186.05,182.5,195.17L182.5,195.17z
+						"
+                        />
+                      </g>
+                    </g>
+                    <g>
+                      <g>
+                        <path
+                          className="svg-shape ham-03"
+                          d="M196.65,540.72c11.49-11.49,22.97-22.97,34.46-34.46c27.57-27.57,55.15-55.15,82.72-82.72
+						c33.22-33.22,66.43-66.43,99.65-99.65c28.71-28.71,57.43-57.43,86.14-86.14c13.96-13.96,28.46-27.56,41.97-41.97
+						c0.2-0.21,0.41-0.41,0.61-0.61c9.11-9.11-5.03-23.26-14.14-14.14c-11.49,11.49-22.97,22.97-34.46,34.46
+						c-27.57,27.57-55.15,55.15-82.72,82.72c-33.22,33.22-66.43,66.43-99.65,99.65c-28.71,28.71-57.43,57.43-86.14,86.14
+						c-13.96,13.96-28.46,27.56-41.97,41.97c-0.2,0.21-0.41,0.41-0.61,0.61C173.39,535.69,187.53,549.84,196.65,540.72
+						L196.65,540.72z"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g id="Unactive">
+                <g>
+                  <path
+                    ref={hamShape1}
+                    className="svg-shape ham-11"
+                    d="M362.84,707.7c-146.67-2.38-330.66-97.22-347.09-257.41C-6.73,224.67,200.67,4.83,428.36,14.35
+			c24.84,1.58,48.33,6.63,70.32,14.65c133.02,49.62,203.76,197.3,206.39,334.13c5.84,194.34-131.76,344.18-342,344.57L362.84,707.7z
+			 M686.79,380.67c-3.85-145.29-92.78-335.08-254.81-347.19c-32.5-1.96-65.52,4.18-96.97,11.62
+			C159.02,88.34,22.48,262.42,35.87,444.39c1.61,18.39,6.71,37.35,14.19,54.57C176.3,791.62,695.08,723.86,686.8,380.88
+			L686.79,380.67z"
+                  />
+                  <g>
+                    <g>
+                      <g>
+                        <path
+                          ref={hamShape2}
+                          className="svg-shape ham-12"
+                          d="M243.5,329.51c11.93,0,23.86,0,35.78,0c28.65,0,57.31,0,85.96,0c34.68,0,69.37,0,104.05,0c30.14,0,60.27,0,90.41,0
+						c14.52,0,29.19,0.59,43.7,0c0.2-0.01,0.41,0,0.61,0c12.87,0,12.89-20,0-20c-11.93,0-23.86,0-35.78,0c-28.65,0-57.31,0-85.96,0
+						c-34.68,0-69.37,0-104.05,0c-30.14,0-60.27,0-90.41,0c-14.52,0-29.19-0.59-43.7,0c-0.2,0.01-0.41,0-0.61,0
+						C230.63,309.51,230.61,329.51,243.5,329.51L243.5,329.51z"
+                        />
+                      </g>
+                    </g>
+                    <g>
+                      <g>
+                        <path
+                          ref={hamShape3}
+                          className="svg-shape ham-13"
+                          d="M115.33,412.24c16.24,0,32.49,0,48.73,0c38.99,0,77.99,0,116.98,0c46.98,0,93.95,0,140.93,0c40.61,0,81.21,0,121.82,0
+						c19.75,0,39.62,0.65,59.35,0c0.29-0.01,0.58,0,0.87,0c12.87,0,12.89-20,0-20c-16.24,0-32.49,0-48.73,0
+						c-38.99,0-77.99,0-116.98,0c-46.98,0-93.95,0-140.93,0c-40.61,0-81.21,0-121.82,0c-19.75,0-39.62-0.65-59.35,0
+						c-0.29,0.01-0.58,0-0.87,0C102.46,392.24,102.44,412.24,115.33,412.24L115.33,412.24z"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
       </div>
       <div ref={navBG} className="nav-bg">
         <svg

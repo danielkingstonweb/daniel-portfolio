@@ -1,7 +1,7 @@
 import express from 'express'
 import * as Path from 'node:path'
 
-import fruitRoutes from './routes/work.ts'
+import fruitRoutes from './routes/work-routes.ts'
 
 const server = express()
 

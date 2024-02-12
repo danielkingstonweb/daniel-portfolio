@@ -8,7 +8,7 @@ gsap.registerPlugin(MorphSVGPlugin)
 
 export default function Nav() {
   // Setting state for Hamburger Toggle
-  const [isClicked, setIsClicked] = useState(false)
+  const [isClicked, setIsClicked] = useState(true)
 
   // Reference Variables
   const link1 = useRef(null)
@@ -37,8 +37,10 @@ export default function Nav() {
   const { contextSafe } = useGSAP(
     () => {
       hamTL.current = gsap
-        .timeline()
+        .timeline({ paused: true })
         .to(hamShape1.current, {
+          duration: 0.2,
+          ease: 'back.out',
           morphSVG: {
             shape: '.ham-01',
             type: 'rotational',
@@ -47,6 +49,8 @@ export default function Nav() {
         .to(
           hamShape2.current,
           {
+            duration: 0.2,
+            ease: 'back.out',
             morphSVG: {
               shape: '.ham-02',
               type: 'rotational',
@@ -57,6 +61,8 @@ export default function Nav() {
         .to(
           hamShape3.current,
           {
+            duration: 0.2,
+            ease: 'back.out',
             morphSVG: {
               shape: '.ham-03',
               type: 'rotational',
@@ -69,9 +75,12 @@ export default function Nav() {
   )
 
   const timelineToggle = contextSafe(() => {
-    console.log('clicky')
+    setIsClicked(!isClicked)
+    console.log(isClicked)
 
-    hamTL.current.reversed(!hamTL.current.reversed())
+    isClicked ? hamTL.current.play() : hamTL.current.reverse()
+
+    // hamTL.current.paused(!hamTL.current.paused())
   })
 
   const onMouseEnterHome = contextSafe(({ currentTarget }) => {
@@ -93,6 +102,7 @@ export default function Nav() {
       },
       '<',
     )
+    console.log(navBG.current)
 
     // HOME HOVER SHAPE ANIMATION
     navTLHome.current.to(
@@ -139,6 +149,8 @@ export default function Nav() {
       },
       '<',
     )
+
+    console.log(navBG.current)
     // WORK HOVER SHAPE ANIMATION
     navTLWork.current.to(
       shape1.current,

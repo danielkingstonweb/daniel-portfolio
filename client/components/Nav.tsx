@@ -3,8 +3,9 @@ import { useEffect, useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
+import { CustomEase } from 'gsap/CustomEase'
 import { COLORS } from './Values'
-gsap.registerPlugin(MorphSVGPlugin)
+gsap.registerPlugin(MorphSVGPlugin, CustomEase)
 
 export default function Nav() {
   // Setting state for Hamburger Toggle
@@ -21,10 +22,15 @@ export default function Nav() {
   const hamShape1 = useRef(null)
   const hamShape2 = useRef(null)
   const hamShape3 = useRef(null)
-  const hamTL = useRef()
+  const hamShape4 = useRef(null)
+  const navMain = useRef(null)
   const toggleContainer = useRef(null)
   const duration = 0.5
   const ease = 'elastic.out(1,0.2)'
+
+  // NAV Layout Timelines()
+  const hamTL = useRef()
+  const openNav = useRef()
 
   // Word effects timelines
   const navTLHome = useRef()
@@ -36,15 +42,37 @@ export default function Nav() {
 
   const { contextSafe } = useGSAP(
     () => {
+      gsap.set(navBG.current, {
+        top: 0,
+        right: 0,
+        clip: '0%',
+        clipPath: 'circle(0%)',
+      })
+
+      // gsap.set(hamShape4, {
+      //   fill: 'none',
+      // })
+
+      gsap.set([navMain.current, shape1.current], {
+        visibility: 'hidden',
+      })
+
       hamTL.current = gsap
         .timeline({ paused: true })
         .to(hamShape1.current, {
-          duration: 0.2,
-          ease: 'back.out',
+          duration: 1,
+          ease: CustomEase.create(
+            'custom',
+            'M0,0,C0.11,0.494,0.192,0.726,0.318,0.852,0.45,0.984,0.504,1,1,1',
+          ),
           morphSVG: {
             shape: '.ham-01',
             type: 'rotational',
           },
+          scaleX: '31.2',
+          scaleY: '31.2',
+          x: -18200,
+          y: -5500,
         })
         .to(
           hamShape2.current,
@@ -70,17 +98,55 @@ export default function Nav() {
           },
           '<',
         )
+        // .to(
+        //   hamShape4.current,
+        //   {
+        //     duration: 1,
+        //     ease: CustomEase.create(
+        //       'custom',
+        //       'M0,0,C0.11,0.494,0.192,0.726,0.318,0.852,0.45,0.984,0.504,1,1,1',
+        //     ),
+        //     morphSVG: {
+        //       shape: '.ham-04',
+        //       type: 'rotational',
+        //     },
+        //     fill: COLORS.white,
+        //     scaleX: '31.2',
+        //     scaleY: '31.2',
+        //     x: -18200,
+        //     y: -5500,
+        //   },
+        //   '<',
+        // )
+        .to(navBG.current, {
+          duration: 0.5,
+          transformOrigin: 'top right',
+          clipPath: 'circle(100%)',
+          ease: CustomEase.create(
+            'custom',
+            'M0,0 C0.126,0.382 0.198,0.606 0.479,0.523 1.048,0.353 0.818,1.001 1,1 ',
+          ),
+        })
+        .to(shape1.current, {
+          visibility: 'visible',
+          duration: 0.2,
+        })
+        .to(navMain.current, {
+          visibility: 'visible',
+          duration: 0.2,
+        })
+
+      // Need to have the nav hidden
+      // ON click nav needs to become visible
+      // Needs to be animated in for skuxxness
+      // Breaking this down -
     },
     { scope: toggleContainer },
   )
 
   const timelineToggle = contextSafe(() => {
     setIsClicked(!isClicked)
-    console.log(isClicked)
-
     isClicked ? hamTL.current.play() : hamTL.current.reverse()
-
-    // hamTL.current.paused(!hamTL.current.paused())
   })
 
   const onMouseEnterHome = contextSafe(({ currentTarget }) => {
@@ -98,7 +164,7 @@ export default function Nav() {
       navBG.current,
       {
         // duration,
-        background: COLORS.orange,
+        backgroundColor: COLORS.orange,
       },
       '<',
     )
@@ -145,12 +211,11 @@ export default function Nav() {
       navBG.current,
       {
         // duration,
-        background: COLORS.red,
+        backgroundColor: COLORS.red,
       },
       '<',
     )
 
-    console.log(navBG.current)
     // WORK HOVER SHAPE ANIMATION
     navTLWork.current.to(
       shape1.current,
@@ -191,7 +256,7 @@ export default function Nav() {
       navBG.current,
       {
         // duration,
-        background: COLORS.purple,
+        backgroundColor: COLORS.purple,
       },
       '<',
     )
@@ -235,7 +300,7 @@ export default function Nav() {
       navBG.current,
       {
         // duration,
-        background: COLORS.blue,
+        backgroundColor: COLORS.blue,
       },
       '<',
     )
@@ -277,7 +342,7 @@ export default function Nav() {
               // xmlns:xlink="http://www.w3.org/1999/xlink"
               x="0px"
               y="0px"
-              viewBox="0 0 723.25 721.75"
+              viewBox="0 0 724.6 724.6"
               // style="enable-background:new 0 0 723.25 721.75;"
               xmlSpace="preserve"
             >
@@ -285,23 +350,23 @@ export default function Nav() {
                 <g>
                   <path
                     className="svg-shape ham-01"
-                    d="M709.17,357.7c-2.38,146.67-97.22,330.66-257.41,347.09C226.14,727.27,6.3,519.87,15.82,292.18
-			c1.58-24.84,6.63-48.33,14.65-70.32C80.09,88.84,227.77,18.1,364.6,15.46c194.34-5.84,344.18,131.76,344.57,342L709.17,357.7z
-			 M382.14,33.75C236.85,37.6,47.06,126.53,34.95,288.56c-1.96,32.5,4.18,65.52,11.62,96.97
-			c43.25,175.99,217.32,312.54,399.29,299.14c18.39-1.61,37.35-6.71,54.57-14.19C793.09,544.25,725.34,25.46,382.35,33.75
-			L382.14,33.75z"
+                    d="M704.72,363.94c-2.38,146.67-97.22,330.66-257.41,347.09C221.68,733.51,1.85,526.12,11.36,298.43
+			c1.58-24.84,6.63-48.33,14.65-70.32C75.63,95.08,223.31,24.34,360.15,21.71c194.34-5.84,344.18,131.76,344.57,342L704.72,363.94z
+			 M377.68,39.99C232.39,43.85,42.61,132.77,30.49,294.8c-1.96,32.5,4.18,65.52,11.62,96.97
+			C85.36,567.77,259.44,704.31,441.4,690.92c18.39-1.61,37.35-6.71,54.57-14.19C788.63,550.49,720.88,31.7,377.89,39.99
+			L377.68,39.99z"
                   />
                   <g>
                     <g>
                       <g>
                         <path
                           className="svg-shape ham-02"
-                          d="M182.5,195.17c11.49,11.49,22.97,22.97,34.46,34.46c27.57,27.57,55.15,55.15,82.72,82.72
+                          d="M178.04,201.42c11.49,11.49,22.97,22.97,34.46,34.46c27.57,27.57,55.15,55.15,82.72,82.72
 						c33.22,33.22,66.43,66.43,99.65,99.65c28.71,28.71,57.43,57.43,86.14,86.14c13.96,13.96,27.56,28.46,41.97,41.97
 						c0.21,0.2,0.41,0.41,0.61,0.61c9.11,9.11,23.26-5.03,14.14-14.14c-11.49-11.49-22.97-22.97-34.46-34.46
 						c-27.57-27.57-55.15-55.15-82.72-82.72c-33.22-33.22-66.43-66.43-99.65-99.65c-28.71-28.71-57.43-57.43-86.14-86.14
-						c-13.96-13.96-27.56-28.46-41.97-41.97c-0.21-0.2-0.41-0.41-0.61-0.61C187.53,171.92,173.39,186.05,182.5,195.17L182.5,195.17z
-						"
+						c-13.96-13.96-27.56-28.46-41.97-41.97c-0.21-0.2-0.41-0.41-0.61-0.61C183.07,178.16,168.93,192.3,178.04,201.42L178.04,201.42
+						z"
                         />
                       </g>
                     </g>
@@ -309,28 +374,37 @@ export default function Nav() {
                       <g>
                         <path
                           className="svg-shape ham-03"
-                          d="M196.65,540.72c11.49-11.49,22.97-22.97,34.46-34.46c27.57-27.57,55.15-55.15,82.72-82.72
+                          d="M192.19,546.97c11.49-11.49,22.97-22.97,34.46-34.46c27.57-27.57,55.15-55.15,82.72-82.72
 						c33.22-33.22,66.43-66.43,99.65-99.65c28.71-28.71,57.43-57.43,86.14-86.14c13.96-13.96,28.46-27.56,41.97-41.97
 						c0.2-0.21,0.41-0.41,0.61-0.61c9.11-9.11-5.03-23.26-14.14-14.14c-11.49,11.49-22.97,22.97-34.46,34.46
 						c-27.57,27.57-55.15,55.15-82.72,82.72c-33.22,33.22-66.43,66.43-99.65,99.65c-28.71,28.71-57.43,57.43-86.14,86.14
-						c-13.96,13.96-28.46,27.56-41.97,41.97c-0.2,0.21-0.41,0.41-0.61,0.61C173.39,535.69,187.53,549.84,196.65,540.72
-						L196.65,540.72z"
+						c-13.96,13.96-28.46,27.56-41.97,41.97c-0.2,0.21-0.41,0.41-0.61,0.61C168.93,541.94,183.07,556.08,192.19,546.97
+						L192.19,546.97z"
                         />
                       </g>
                     </g>
                   </g>
+                  <path
+                    className="svg-shape ham-04"
+                    d="M694.12,371.56c-3.07,80.08-30.21,162.79-87.12,234.61c-29.71,37.51-66.23,66.59-111.9,83.01
+			c-21.73,7.81-44.18,11.93-67.17,12.68c-103.99,3.39-193-33.56-270.28-101.34C94.81,545.4,52.62,477.3,31.86,396.28
+			c-11.81-46.09-14.16-92.68-2.8-139.26c11.94-48.93,38.49-89.41,74.2-124.21c36.22-35.3,79.44-59.05,126.74-75.93
+			c49.47-17.65,100.35-27.19,152.97-24.16c74.59,4.29,143.02,26.11,201.29,74.58c32.79,27.28,57.23,61.09,74.99,99.72
+			C681.63,255.72,693.73,306.82,694.12,371.56z"
+                  />
                 </g>
               </g>
               <g id="Unactive">
                 <g>
                   <path
-                    ref={hamShape1}
-                    className="svg-shape ham-11"
-                    d="M362.84,707.7c-146.67-2.38-330.66-97.22-347.09-257.41C-6.73,224.67,200.67,4.83,428.36,14.35
-			c24.84,1.58,48.33,6.63,70.32,14.65c133.02,49.62,203.76,197.3,206.39,334.13c5.84,194.34-131.76,344.18-342,344.57L362.84,707.7z
-			 M686.79,380.67c-3.85-145.29-92.78-335.08-254.81-347.19c-32.5-1.96-65.52,4.18-96.97,11.62
-			C159.02,88.34,22.48,262.42,35.87,444.39c1.61,18.39,6.71,37.35,14.19,54.57C176.3,791.62,695.08,723.86,686.8,380.88
-			L686.79,380.67z"
+                    ref={hamShape4}
+                    fill="none"
+                    className="svg-shape ham-14"
+                    d="M359.1,697.41c-80.08-3.07-162.79-30.21-234.61-87.12c-37.51-29.71-66.59-66.23-83.01-111.9
+			c-7.81-21.73-11.93-44.18-12.68-67.17c-3.39-103.99,33.56-193,101.34-270.28C185.26,98.1,253.36,55.91,334.38,35.15
+			c46.09-11.81,92.68-14.16,139.26-2.8c48.93,11.94,89.41,38.49,124.21,74.2c35.3,36.22,59.05,79.44,75.93,126.74
+			c17.65,49.47,27.19,100.35,24.16,152.97c-4.29,74.59-26.11,143.02-74.58,201.29c-27.28,32.79-61.09,57.23-99.72,74.99
+			C474.94,684.93,423.84,697.02,359.1,697.41z"
                   />
                   <g>
                     <g>
@@ -338,10 +412,10 @@ export default function Nav() {
                         <path
                           ref={hamShape2}
                           className="svg-shape ham-12"
-                          d="M243.5,329.51c11.93,0,23.86,0,35.78,0c28.65,0,57.31,0,85.96,0c34.68,0,69.37,0,104.05,0c30.14,0,60.27,0,90.41,0
+                          d="M247.37,329.82c11.93,0,23.86,0,35.78,0c28.65,0,57.31,0,85.96,0c34.68,0,69.37,0,104.05,0c30.14,0,60.27,0,90.41,0
 						c14.52,0,29.19,0.59,43.7,0c0.2-0.01,0.41,0,0.61,0c12.87,0,12.89-20,0-20c-11.93,0-23.86,0-35.78,0c-28.65,0-57.31,0-85.96,0
 						c-34.68,0-69.37,0-104.05,0c-30.14,0-60.27,0-90.41,0c-14.52,0-29.19-0.59-43.7,0c-0.2,0.01-0.41,0-0.61,0
-						C230.63,309.51,230.61,329.51,243.5,329.51L243.5,329.51z"
+						C234.5,309.82,234.48,329.82,247.37,329.82L247.37,329.82z"
                         />
                       </g>
                     </g>
@@ -350,14 +424,24 @@ export default function Nav() {
                         <path
                           ref={hamShape3}
                           className="svg-shape ham-13"
-                          d="M115.33,412.24c16.24,0,32.49,0,48.73,0c38.99,0,77.99,0,116.98,0c46.98,0,93.95,0,140.93,0c40.61,0,81.21,0,121.82,0
+                          d="M119.2,412.55c16.24,0,32.49,0,48.73,0c38.99,0,77.99,0,116.98,0c46.98,0,93.95,0,140.93,0c40.61,0,81.21,0,121.82,0
 						c19.75,0,39.62,0.65,59.35,0c0.29-0.01,0.58,0,0.87,0c12.87,0,12.89-20,0-20c-16.24,0-32.49,0-48.73,0
 						c-38.99,0-77.99,0-116.98,0c-46.98,0-93.95,0-140.93,0c-40.61,0-81.21,0-121.82,0c-19.75,0-39.62-0.65-59.35,0
-						c-0.29,0.01-0.58,0-0.87,0C102.46,392.24,102.44,412.24,115.33,412.24L115.33,412.24z"
+						c-0.29,0.01-0.58,0-0.87,0C106.33,392.55,106.31,412.55,119.2,412.55L119.2,412.55z"
                         />
                       </g>
                     </g>
                   </g>
+
+                  <path
+                    ref={hamShape1}
+                    className="svg-shape ham-11"
+                    d="M366.72,708.01c-146.67-2.38-330.66-97.22-347.09-257.41C-2.85,224.98,204.54,5.14,432.23,14.66
+			c24.84,1.58,48.33,6.63,70.32,14.65c133.02,49.62,203.76,197.3,206.39,334.13c5.84,194.34-131.76,344.18-342,344.57L366.72,708.01
+			z M690.67,380.97C686.81,235.68,597.89,45.9,435.86,33.78c-32.5-1.96-65.52,4.18-96.97,11.62
+			C162.89,88.65,26.35,262.73,39.74,444.7c1.61,18.39,6.71,37.35,14.19,54.57c126.24,292.66,645.03,224.91,636.74-118.08
+			L690.67,380.97z"
+                  />
                 </g>
               </g>
             </svg>
@@ -481,7 +565,7 @@ export default function Nav() {
           />
         </svg>
       </div>
-      <nav className="nav">
+      <nav ref={navMain} className="nav">
         <div className="nav__left">
           <ul className="nav__items">
             <li className="nav__item">

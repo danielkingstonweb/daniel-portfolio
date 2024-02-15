@@ -71,6 +71,7 @@
     z-index: 999;
     background: $orange;
     -webkit-filter: blur(5px);
+    transform-origin: top right;
     // display: none;
 
     svg{
@@ -108,8 +109,12 @@
 
   &-item{
     list-style-type: none;
+    position: relative;
     color: $black;
   }
+
+
+
 
   &-under{
     width: 100%;

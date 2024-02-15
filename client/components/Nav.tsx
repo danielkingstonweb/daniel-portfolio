@@ -4,8 +4,9 @@ import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
 import { CustomEase } from 'gsap/CustomEase'
+import { CustomWiggle } from 'gsap/all'
 import { COLORS } from './Values'
-gsap.registerPlugin(MorphSVGPlugin, CustomEase)
+gsap.registerPlugin(MorphSVGPlugin, CustomEase, CustomWiggle)
 
 export default function Nav() {
   // Setting state for Hamburger Toggle
@@ -23,6 +24,7 @@ export default function Nav() {
   const hamShape2 = useRef(null)
   const hamShape3 = useRef(null)
   const hamShape4 = useRef(null)
+  const navArea = useRef(null)
   const navMain = useRef(null)
   const toggleContainer = useRef(null)
   const duration = 0.5
@@ -43,18 +45,23 @@ export default function Nav() {
   const { contextSafe } = useGSAP(
     () => {
       gsap.set(navBG.current, {
+        transformOrigin: 'top right',
         top: 0,
         right: 0,
         clip: '0%',
-        clipPath: 'circle(0%)',
+        clipPath: 'circle(0% at 100% 0)',
       })
 
       // gsap.set(hamShape4, {
       //   fill: 'none',
       // })
 
-      gsap.set([navMain.current, shape1.current], {
+      gsap.set([shape1.current, navMain.current], {
         visibility: 'hidden',
+      })
+
+      gsap.set('.nav-item', {
+        right: '1000px',
       })
 
       hamTL.current = gsap
@@ -69,32 +76,36 @@ export default function Nav() {
             shape: '.ham-01',
             type: 'rotational',
           },
-          scaleX: '31.2',
-          scaleY: '31.2',
-          x: -18200,
-          y: -5500,
+          fill: COLORS.white,
+          // scaleX: '31.2',
+          // scaleY: '31.2',
+          // x: -18200,
+          // y: -5500,
+          // opacity: 0,
         })
         .to(
           hamShape2.current,
           {
-            duration: 0.2,
+            duration: 0.5,
             ease: 'back.out',
             morphSVG: {
               shape: '.ham-02',
               type: 'rotational',
             },
+            fill: COLORS.white,
           },
           '<',
         )
         .to(
           hamShape3.current,
           {
-            duration: 0.2,
+            duration: 0.5,
             ease: 'back.out',
             morphSVG: {
               shape: '.ham-03',
               type: 'rotational',
             },
+            fill: COLORS.white,
           },
           '<',
         )
@@ -118,30 +129,55 @@ export default function Nav() {
         //   },
         //   '<',
         // )
-        .to(navBG.current, {
-          duration: 0.5,
-          transformOrigin: 'top right',
-          clipPath: 'circle(100%)',
-          ease: CustomEase.create(
-            'custom',
-            'M0,0 C0.126,0.382 0.198,0.606 0.479,0.523 1.048,0.353 0.818,1.001 1,1 ',
-          ),
-        })
+        .to(
+          navBG.current,
+          {
+            duration: 0.5,
+            transformOrigin: 'top right',
+            // top: 0,
+            // right: 0,
+            clipPath: 'circle(141.2% at 100% 0)',
+            ease: CustomEase.create(
+              'custom',
+              'M0,0 C0.046,0.091 0.635,0.168 0.705,0.623 0.726,0.764 0.72,1 1,1 ',
+            ),
+          },
+          '-=1',
+        )
+        .to(
+          shape1.current,
+          {
+            opacity: '0%',
+          },
+          '<',
+        )
+        .to(
+          shape1.current,
+          {
+            visibility: 'visible',
+            duration: 0.2,
+          },
+          '<',
+        )
         .to(shape1.current, {
-          visibility: 'visible',
-          duration: 0.2,
+          duration: 0.5,
+          opacity: '100%',
         })
-        .to(navMain.current, {
-          visibility: 'visible',
-          duration: 0.2,
+        .to(
+          navMain.current,
+          {
+            visibility: 'visible',
+            duration: 0.2,
+          },
+          '<',
+        )
+        .to('.nav-item', {
+          right: 0,
+          duration: 0.5,
+          stagger: 0.2,
         })
-
-      // Need to have the nav hidden
-      // ON click nav needs to become visible
-      // Needs to be animated in for skuxxness
-      // Breaking this down -
     },
-    { scope: toggleContainer },
+    { scope: navArea },
   )
 
   const timelineToggle = contextSafe(() => {
@@ -332,169 +368,170 @@ export default function Nav() {
 
   return (
     <>
-      <div ref={toggleContainer} className="nav-bar">
-        <div className="nav__logo"></div>
-        <div className="nav-toggle" id="navToggle">
-          <div onClick={timelineToggle} className="nav__hamburger">
-            <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              // xmlns:xlink="http://www.w3.org/1999/xlink"
-              x="0px"
-              y="0px"
-              viewBox="0 0 724.6 724.6"
-              // style="enable-background:new 0 0 723.25 721.75;"
-              xmlSpace="preserve"
-            >
-              <g id="Active">
-                <g>
-                  <path
-                    className="svg-shape ham-01"
-                    d="M704.72,363.94c-2.38,146.67-97.22,330.66-257.41,347.09C221.68,733.51,1.85,526.12,11.36,298.43
+      <div ref={navArea} className="nav-area">
+        <div ref={toggleContainer} className="nav-bar">
+          <div className="nav__logo"></div>
+          <div className="nav-toggle" id="navToggle">
+            <div onClick={timelineToggle} className="nav__hamburger">
+              <svg
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                // xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 724.6 724.6"
+                // style="enable-background:new 0 0 723.25 721.75;"
+                xmlSpace="preserve"
+              >
+                <g id="Active">
+                  <g>
+                    <path
+                      className="svg-shape ham-01"
+                      d="M704.72,363.94c-2.38,146.67-97.22,330.66-257.41,347.09C221.68,733.51,1.85,526.12,11.36,298.43
 			c1.58-24.84,6.63-48.33,14.65-70.32C75.63,95.08,223.31,24.34,360.15,21.71c194.34-5.84,344.18,131.76,344.57,342L704.72,363.94z
 			 M377.68,39.99C232.39,43.85,42.61,132.77,30.49,294.8c-1.96,32.5,4.18,65.52,11.62,96.97
 			C85.36,567.77,259.44,704.31,441.4,690.92c18.39-1.61,37.35-6.71,54.57-14.19C788.63,550.49,720.88,31.7,377.89,39.99
 			L377.68,39.99z"
-                  />
-                  <g>
+                    />
                     <g>
                       <g>
-                        <path
-                          className="svg-shape ham-02"
-                          d="M178.04,201.42c11.49,11.49,22.97,22.97,34.46,34.46c27.57,27.57,55.15,55.15,82.72,82.72
+                        <g>
+                          <path
+                            className="svg-shape ham-02"
+                            d="M178.04,201.42c11.49,11.49,22.97,22.97,34.46,34.46c27.57,27.57,55.15,55.15,82.72,82.72
 						c33.22,33.22,66.43,66.43,99.65,99.65c28.71,28.71,57.43,57.43,86.14,86.14c13.96,13.96,27.56,28.46,41.97,41.97
 						c0.21,0.2,0.41,0.41,0.61,0.61c9.11,9.11,23.26-5.03,14.14-14.14c-11.49-11.49-22.97-22.97-34.46-34.46
 						c-27.57-27.57-55.15-55.15-82.72-82.72c-33.22-33.22-66.43-66.43-99.65-99.65c-28.71-28.71-57.43-57.43-86.14-86.14
 						c-13.96-13.96-27.56-28.46-41.97-41.97c-0.21-0.2-0.41-0.41-0.61-0.61C183.07,178.16,168.93,192.3,178.04,201.42L178.04,201.42
 						z"
-                        />
+                          />
+                        </g>
                       </g>
-                    </g>
-                    <g>
                       <g>
-                        <path
-                          className="svg-shape ham-03"
-                          d="M192.19,546.97c11.49-11.49,22.97-22.97,34.46-34.46c27.57-27.57,55.15-55.15,82.72-82.72
+                        <g>
+                          <path
+                            className="svg-shape ham-03"
+                            d="M192.19,546.97c11.49-11.49,22.97-22.97,34.46-34.46c27.57-27.57,55.15-55.15,82.72-82.72
 						c33.22-33.22,66.43-66.43,99.65-99.65c28.71-28.71,57.43-57.43,86.14-86.14c13.96-13.96,28.46-27.56,41.97-41.97
 						c0.2-0.21,0.41-0.41,0.61-0.61c9.11-9.11-5.03-23.26-14.14-14.14c-11.49,11.49-22.97,22.97-34.46,34.46
 						c-27.57,27.57-55.15,55.15-82.72,82.72c-33.22,33.22-66.43,66.43-99.65,99.65c-28.71,28.71-57.43,57.43-86.14,86.14
 						c-13.96,13.96-28.46,27.56-41.97,41.97c-0.2,0.21-0.41,0.41-0.61,0.61C168.93,541.94,183.07,556.08,192.19,546.97
 						L192.19,546.97z"
-                        />
+                          />
+                        </g>
                       </g>
                     </g>
-                  </g>
-                  <path
-                    className="svg-shape ham-04"
-                    d="M694.12,371.56c-3.07,80.08-30.21,162.79-87.12,234.61c-29.71,37.51-66.23,66.59-111.9,83.01
+                    <path
+                      className="svg-shape ham-04"
+                      d="M694.12,371.56c-3.07,80.08-30.21,162.79-87.12,234.61c-29.71,37.51-66.23,66.59-111.9,83.01
 			c-21.73,7.81-44.18,11.93-67.17,12.68c-103.99,3.39-193-33.56-270.28-101.34C94.81,545.4,52.62,477.3,31.86,396.28
 			c-11.81-46.09-14.16-92.68-2.8-139.26c11.94-48.93,38.49-89.41,74.2-124.21c36.22-35.3,79.44-59.05,126.74-75.93
 			c49.47-17.65,100.35-27.19,152.97-24.16c74.59,4.29,143.02,26.11,201.29,74.58c32.79,27.28,57.23,61.09,74.99,99.72
 			C681.63,255.72,693.73,306.82,694.12,371.56z"
-                  />
+                    />
+                  </g>
                 </g>
-              </g>
-              <g id="Unactive">
-                <g>
-                  <path
-                    ref={hamShape4}
-                    fill="none"
-                    className="svg-shape ham-14"
-                    d="M359.1,697.41c-80.08-3.07-162.79-30.21-234.61-87.12c-37.51-29.71-66.59-66.23-83.01-111.9
+                <g id="Unactive">
+                  <g>
+                    <path
+                      ref={hamShape4}
+                      fill="none"
+                      className="svg-shape ham-14"
+                      d="M359.1,697.41c-80.08-3.07-162.79-30.21-234.61-87.12c-37.51-29.71-66.59-66.23-83.01-111.9
 			c-7.81-21.73-11.93-44.18-12.68-67.17c-3.39-103.99,33.56-193,101.34-270.28C185.26,98.1,253.36,55.91,334.38,35.15
 			c46.09-11.81,92.68-14.16,139.26-2.8c48.93,11.94,89.41,38.49,124.21,74.2c35.3,36.22,59.05,79.44,75.93,126.74
 			c17.65,49.47,27.19,100.35,24.16,152.97c-4.29,74.59-26.11,143.02-74.58,201.29c-27.28,32.79-61.09,57.23-99.72,74.99
 			C474.94,684.93,423.84,697.02,359.1,697.41z"
-                  />
-                  <g>
+                    />
                     <g>
                       <g>
-                        <path
-                          ref={hamShape2}
-                          className="svg-shape ham-12"
-                          d="M247.37,329.82c11.93,0,23.86,0,35.78,0c28.65,0,57.31,0,85.96,0c34.68,0,69.37,0,104.05,0c30.14,0,60.27,0,90.41,0
+                        <g>
+                          <path
+                            ref={hamShape2}
+                            className="svg-shape ham-12"
+                            d="M247.37,329.82c11.93,0,23.86,0,35.78,0c28.65,0,57.31,0,85.96,0c34.68,0,69.37,0,104.05,0c30.14,0,60.27,0,90.41,0
 						c14.52,0,29.19,0.59,43.7,0c0.2-0.01,0.41,0,0.61,0c12.87,0,12.89-20,0-20c-11.93,0-23.86,0-35.78,0c-28.65,0-57.31,0-85.96,0
 						c-34.68,0-69.37,0-104.05,0c-30.14,0-60.27,0-90.41,0c-14.52,0-29.19-0.59-43.7,0c-0.2,0.01-0.41,0-0.61,0
 						C234.5,309.82,234.48,329.82,247.37,329.82L247.37,329.82z"
-                        />
+                          />
+                        </g>
                       </g>
-                    </g>
-                    <g>
                       <g>
-                        <path
-                          ref={hamShape3}
-                          className="svg-shape ham-13"
-                          d="M119.2,412.55c16.24,0,32.49,0,48.73,0c38.99,0,77.99,0,116.98,0c46.98,0,93.95,0,140.93,0c40.61,0,81.21,0,121.82,0
+                        <g>
+                          <path
+                            ref={hamShape3}
+                            className="svg-shape ham-13"
+                            d="M119.2,412.55c16.24,0,32.49,0,48.73,0c38.99,0,77.99,0,116.98,0c46.98,0,93.95,0,140.93,0c40.61,0,81.21,0,121.82,0
 						c19.75,0,39.62,0.65,59.35,0c0.29-0.01,0.58,0,0.87,0c12.87,0,12.89-20,0-20c-16.24,0-32.49,0-48.73,0
 						c-38.99,0-77.99,0-116.98,0c-46.98,0-93.95,0-140.93,0c-40.61,0-81.21,0-121.82,0c-19.75,0-39.62-0.65-59.35,0
 						c-0.29,0.01-0.58,0-0.87,0C106.33,392.55,106.31,412.55,119.2,412.55L119.2,412.55z"
-                        />
+                          />
+                        </g>
                       </g>
                     </g>
-                  </g>
 
-                  <path
-                    ref={hamShape1}
-                    className="svg-shape ham-11"
-                    d="M366.72,708.01c-146.67-2.38-330.66-97.22-347.09-257.41C-2.85,224.98,204.54,5.14,432.23,14.66
+                    <path
+                      ref={hamShape1}
+                      className="svg-shape ham-11"
+                      d="M366.72,708.01c-146.67-2.38-330.66-97.22-347.09-257.41C-2.85,224.98,204.54,5.14,432.23,14.66
 			c24.84,1.58,48.33,6.63,70.32,14.65c133.02,49.62,203.76,197.3,206.39,334.13c5.84,194.34-131.76,344.18-342,344.57L366.72,708.01
 			z M690.67,380.97C686.81,235.68,597.89,45.9,435.86,33.78c-32.5-1.96-65.52,4.18-96.97,11.62
 			C162.89,88.65,26.35,262.73,39.74,444.7c1.61,18.39,6.71,37.35,14.19,54.57c126.24,292.66,645.03,224.91,636.74-118.08
 			L690.67,380.97z"
-                  />
+                    />
+                  </g>
                 </g>
-              </g>
-            </svg>
+              </svg>
+            </div>
           </div>
         </div>
-      </div>
-      <div ref={navBG} className="nav-bg">
-        <svg
-          version="1.1"
-          id="Layer_1"
-          xmlns="http://www.w3.org/2000/svg"
-          // xmlns:xlink="http://www.w3.org/1999/xlink"
-          x="0px"
-          y="0px"
-          viewBox="0 0 942 857"
-          // style="enable-background:new 0 0 942 857;"
-          xmlSpace="preserve"
-        >
-          <defs>
-            <linearGradient id="bruh" x1="100%" y1="100%">
-              <stop offset="0%" stopColor="lightblue" stopOpacity=".5">
-                <animate
-                  attributeName="stop-color"
-                  values="lightblue;blue;red;red;black;red;red;purple;lightblue"
-                  dur="14s"
-                  repeatCount="indefinite"
-                />
-              </stop>
-              <stop offset="100%" stopColor="lightblue" stopOpacity=".5">
-                <animate
-                  attributeName="stopColor"
-                  values="lightblue;orange;purple;purple;black;purple;purple;blue;lightblue"
-                  dur="14s"
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="offset"
-                  values=".95;.80;.60;.40;.20;0;.20;.40;.60;.80;.95"
-                  dur="14s"
-                  repeatCount="indefinite"
-                />
-              </stop>
-            </linearGradient>
-          </defs>
-          <path
-            id="blue"
-            className="svg-shape st0"
-            fill={COLORS.red}
-            // fill="url(#bruh)"
-            ref={shape1}
-            strokeWidth="5"
-            strokeMiterlimit="10"
-            d="M378.01,12.31c37.9,1.87,74.04,4.55,108.97,15.33c23.58,7.28,43.74,20.99,63.04,35.9
+        <div ref={navBG} className="nav-bg">
+          <svg
+            version="1.1"
+            id="Layer_1"
+            xmlns="http://www.w3.org/2000/svg"
+            // xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 942 857"
+            // style="enable-background:new 0 0 942 857;"
+            xmlSpace="preserve"
+          >
+            <defs>
+              <linearGradient id="bruh" x1="100%" y1="100%">
+                <stop offset="0%" stopColor="lightblue" stopOpacity=".5">
+                  <animate
+                    attributeName="stop-color"
+                    values="lightblue;blue;red;red;black;red;red;purple;lightblue"
+                    dur="14s"
+                    repeatCount="indefinite"
+                  />
+                </stop>
+                <stop offset="100%" stopColor="lightblue" stopOpacity=".5">
+                  <animate
+                    attributeName="stopColor"
+                    values="lightblue;orange;purple;purple;black;purple;purple;blue;lightblue"
+                    dur="14s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="offset"
+                    values=".95;.80;.60;.40;.20;0;.20;.40;.60;.80;.95"
+                    dur="14s"
+                    repeatCount="indefinite"
+                  />
+                </stop>
+              </linearGradient>
+            </defs>
+            <path
+              id="blue"
+              className="svg-shape st0"
+              fill={COLORS.red}
+              // fill="url(#bruh)"
+              ref={shape1}
+              strokeWidth="5"
+              strokeMiterlimit="10"
+              d="M378.01,12.31c37.9,1.87,74.04,4.55,108.97,15.33c23.58,7.28,43.74,20.99,63.04,35.9
 	c21.33,16.48,42.09,33.7,63.66,49.86c25.83,19.35,55.59,31.25,85.26,43.29c18.33,7.44,36.46,15.44,54.41,23.75
 	c26.02,12.04,47.03,30.52,65.6,52.1c17.17,19.95,33.93,40.19,47.97,62.55c15.37,24.48,27.22,50.39,31.39,79.25
 	c4.34,30.01-1.68,58.26-15.46,85.01c-14.35,27.84-34.88,50.64-58.52,70.78c-20.59,17.54-42.9,32.67-66.41,46.02
@@ -507,13 +544,13 @@ export default function Nav() {
 	c25.76-10.86,51.94-20.73,77.48-32.07c19.64-8.72,37.3-20.66,49.36-39.26c8.23-12.7,12.33-26.77,13.96-41.72
 	c2.61-23.9-1.06-47.41-3.67-71.04c-2.12-19.14-3.93-38.41-4.24-57.64c-0.61-37.94,17.97-64.78,50.84-82.33
 	c18.76-10.01,38.97-15.25,60.08-17.12C359.71,13.67,369.66,12.97,378.01,12.31z"
-          />
-          <path
-            id="purple"
-            className="svg-shape st1"
-            fill="none"
-            // ref={shape2}
-            d="M600.03,130.47c-0.92,24.12-2.63,49.73-2.66,75.36c-0.04,26.64,1.07,53.37,14.12,77.78
+            />
+            <path
+              id="purple"
+              className="svg-shape st1"
+              fill="none"
+              // ref={shape2}
+              d="M600.03,130.47c-0.92,24.12-2.63,49.73-2.66,75.36c-0.04,26.64,1.07,53.37,14.12,77.78
 	c14.96,27.98,41.81,41.94,73.76,39.02c29.14-2.66,55.86-13.31,82.78-23.45c24.91-9.38,49.47-19.85,75.92-24.36
 	c18.22-3.11,36.25-3.21,52.93,6.34c13.72,7.86,24.27,18.34,25.55,35.22c0.84,11.02-2.64,21.27-8.35,30.34
 	c-8.13,12.94-16.96,25.48-26.09,37.74c-15.3,20.55-31.71,40.3-46.46,61.23c-12.51,17.75-19.83,37.67-17.59,60.1
@@ -527,13 +564,13 @@ export default function Nav() {
 	c15-16.26,25.13-35.53,34.54-55.28c11.09-23.28,21.66-46.84,33.52-69.73c9.97-19.22,25.3-33.99,42.59-47.01
 	c25.82-19.44,51.17-39.5,79.26-55.68c20-11.52,40.72-21.11,63.8-24.96c38.28-6.39,72.09,13.57,85.27,50.65
 	C598.69,84.7,599.65,106.78,600.03,130.47z"
-          />
-          <path
-            id="orange"
-            className="svg-shape st2"
-            fill="none"
-            // ref={shape3}
-            d="M346.67,823.99c-37.56-0.6-66.62-2.94-95.07-10.99c-31.86-9.01-59.3-26.17-85.37-45.74
+            />
+            <path
+              id="orange"
+              className="svg-shape st2"
+              fill="none"
+              // ref={shape3}
+              d="M346.67,823.99c-37.56-0.6-66.62-2.94-95.07-10.99c-31.86-9.01-59.3-26.17-85.37-45.74
 	c-39.27-29.48-72.7-64.44-97.53-107.13c-17.78-30.56-29.45-63.19-34.15-98.38c-5.83-43.65-0.96-86.27,11.17-128.26
 	c12.46-43.16,32.5-82.55,58.98-118.84c20.02-27.43,46.81-45.31,78.41-55.98c24.41-8.24,49.39-14.8,74.12-22.11
 	c28.32-8.37,56.4-17.34,80.94-34.56c19.18-13.47,35.72-29.87,51.92-46.68c17.93-18.61,36.55-36.37,58.65-50.25
@@ -543,13 +580,13 @@ export default function Nav() {
 	c-16.9,21.63-34.85,42.6-49.81,65.51c-11.47,17.55-19.56,37.42-28.18,56.69c-13.85,31-25.32,63.12-43.09,92.24
 	c-19.85,32.54-38.09,66.07-60.93,96.76c-24.97,33.57-57.52,56.93-95.67,73.09c-34.27,14.51-70.08,23.18-106.96,27.29
 	c-22.96,2.56-46.01,4.35-69.04,6.12C384.99,821.67,361.75,823,346.67,823.99z"
-          />
-          <path
-            id="red"
-            className="svg-shape st3"
-            fill="none"
-            // ref={shape4}
-            d="M11.46,299.15c-0.12-29.41,5.85-53.7,22.39-74.69c17.01-21.59,39.98-33.06,66.18-39.07
+            />
+            <path
+              id="red"
+              className="svg-shape st3"
+              fill="none"
+              // ref={shape4}
+              d="M11.46,299.15c-0.12-29.41,5.85-53.7,22.39-74.69c17.01-21.59,39.98-33.06,66.18-39.07
 	c20.7-4.74,41.77-6.1,62.91-7.06c25.77-1.16,51.57-2.17,77.29-4.16c20.31-1.57,40.1-6.21,58.94-14.29
 	c16.79-7.2,28.3-20.29,38.07-35.03c9.65-14.58,18.31-29.84,28.35-44.13c5.87-8.36,12.78-16.42,20.67-22.83
 	c16.01-13.02,34.28-12.04,52.49-4.94c16.41,6.39,29.21,17.91,40.5,30.99c15.23,17.65,29.39,36.25,45.06,53.49
@@ -562,64 +599,69 @@ export default function Nav() {
 	c-21.76-10.45-40.53-25.26-56.4-43.21c-19.18-21.7-37.69-44.04-55.64-66.77c-22.25-28.17-46.74-54.26-71.23-80.41
 	c-26.56-28.36-52.31-57.37-72.98-90.51c-12.5-20.04-21.44-41.69-29.78-63.68c-11.76-30.97-23.99-61.77-32-94.01
 	C14.6,333.39,11.47,314.88,11.46,299.15z"
-          />
-        </svg>
-      </div>
-      <nav ref={navMain} className="nav">
-        <div className="nav__left">
-          <ul className="nav__items">
-            <li className="nav__item">
-              <NavLink
-                onMouseEnter={onMouseEnterHome}
-                onMouseLeave={onMouseLeaveHome}
-                ref={link1}
-                to="/"
-                className="nav-item"
-              >
-                HOME
-              </NavLink>
-              {/* <div ref={under1} className="nav-under"></div> */}
-            </li>
-            <li className="nav__item">
-              <NavLink
-                onMouseEnter={onMouseEnterWork}
-                onMouseLeave={onMouseLeaveWork}
-                ref={link2}
-                className="nav-item"
-                to="/Work"
-              >
-                DEV | DESIGN
-              </NavLink>
-              {/* <div ref={under2} className="nav-under"></div> */}
-            </li>
-            <li className="nav__item">
-              <NavLink
-                onMouseEnter={onMouseEnterPhot}
-                onMouseLeave={onMouseLeavePhot}
-                ref={link3}
-                className="nav-item"
-                to="/Photography"
-              >
-                PHOTOGRAPHY
-              </NavLink>
-              {/* <div ref={under3} className="nav-under"></div> */}
-            </li>
-            <li className="nav__item">
-              <NavLink
-                onMouseEnter={onMouseEnterCont}
-                onMouseLeave={onMouseLeaveCont}
-                ref={link4}
-                className="nav-item"
-                to="/Contact"
-              >
-                CONTACT
-              </NavLink>
-              {/* <div ref={under4} className="nav-under"></div> */}
-            </li>
-          </ul>
+            />
+          </svg>
         </div>
-        <div className="nav__right"></div>
-      </nav>
+        <nav ref={navMain} className="nav">
+          <div className="nav__left">
+            <ul className="nav__items">
+              <li className="nav__item">
+                <NavLink
+                  onMouseEnter={onMouseEnterHome}
+                  onMouseLeave={onMouseLeaveHome}
+                  ref={link1}
+                  to="/"
+                  className="nav-item"
+                >
+                  HOME
+                </NavLink>
+                {/* <div ref={under1} className="nav-under"></div> */}
+                <div className="nav-reveal"></div>
+              </li>
+              <li className="nav__item">
+                <NavLink
+                  onMouseEnter={onMouseEnterWork}
+                  onMouseLeave={onMouseLeaveWork}
+                  ref={link2}
+                  className="nav-item"
+                  to="/Work"
+                >
+                  DEV | DESIGN
+                </NavLink>
+                {/* <div ref={under2} className="nav-under"></div> */}
+                <div className="nav-reveal"></div>
+              </li>
+              <li className="nav__item">
+                <NavLink
+                  onMouseEnter={onMouseEnterPhot}
+                  onMouseLeave={onMouseLeavePhot}
+                  ref={link3}
+                  className="nav-item"
+                  to="/Photography"
+                >
+                  PHOTOGRAPHY
+                </NavLink>
+                {/* <div ref={under3} className="nav-under"></div> */}
+                <div className="nav-reveal"></div>
+              </li>
+              <li className="nav__item">
+                <NavLink
+                  onMouseEnter={onMouseEnterCont}
+                  onMouseLeave={onMouseLeaveCont}
+                  ref={link4}
+                  className="nav-item"
+                  to="/Contact"
+                >
+                  CONTACT
+                </NavLink>
+                {/* <div ref={under4} className="nav-under"></div> */}
+                <div className="nav-reveal"></div>
+              </li>
+            </ul>
+          </div>
+          <div className="nav__right"></div>
+        </nav>
+      </div>
     </>
   )
 }

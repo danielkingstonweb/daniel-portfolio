@@ -18,6 +18,7 @@ export default function Work() {
 
   const divTL = useRef()
   const sectionTL = useRef()
+  const imgTL = useRef()
   const workScope = useRef()
 
   const {
@@ -36,11 +37,11 @@ export default function Work() {
       const lines = gsap.utils.toArray('.work-div')
       const images = gsap.utils.toArray('.work-img')
       const sections = gsap.utils.toArray('.work__section')
-      console.log(images, sections)
+      // console.log(images, sections)
 
-      sections.map((section, index) => {
+      sections.map((section) => {
         gsap.set(section, {
-          y: 150,
+          // y: 150,
           opacity: 0,
         })
 
@@ -49,42 +50,63 @@ export default function Work() {
             scrollTrigger: {
               // scrub: true,
               trigger: section,
-              start: 'top 450',
+              start: 'top 400',
               toggleActions: 'play none none reverse',
-              markers: true,
+              // markers: true,
             },
           })
           .to(section, {
             duration: 1,
-            opacity: 100,
+            opacity: 1,
             ease: 'power3.out',
-            y: -100,
+            // y: 0,
           })
+      })
 
-        images.map((image, index) => {})
-
-        lines.map((line, index) => {
-          gsap.set(line, {
-            scaleX: 0,
-          })
-
-          divTL.current = gsap
-            .timeline({
-              scrollTrigger: {
-                // scrub: true,
-                trigger: line,
-                start: 'top 450',
-                toggleActions: 'play none none reverse',
-                markers: true,
-              },
-            })
-            .to(line, {
-              scaleX: 1,
-              duration: 1,
-              ease: 'power1.inOut',
-              transformOrigin: index % 2 === 0 ? 'left' : 'right',
-            })
+      images.map((image) => {
+        gsap.set(image, {
+          y: 50,
+          opacity: 0,
         })
+
+        imgTL.current = gsap
+          .timeline({
+            scrollTrigger: {
+              // scrub: true,
+              trigger: image,
+              start: 'top 450',
+              toggleActions: 'play none none reverse',
+              // markers: true,
+            },
+          })
+          .to(image, {
+            y: 0,
+            opacity: 1,
+            ease: 'power3.out',
+          })
+      })
+
+      lines.map((line, index) => {
+        gsap.set(line, {
+          scaleX: 0,
+        })
+
+        divTL.current = gsap
+          .timeline({
+            scrollTrigger: {
+              // scrub: true,
+              trigger: line,
+              start: 'top 380',
+              toggleActions: 'play none none reverse',
+              // markers: true,
+            },
+          })
+          .to(line, {
+            scaleX: 1,
+            duration: 1,
+            ease: 'power1.inOut',
+            transformOrigin: index % 2 === 0 ? 'left' : 'right',
+          })
       })
     },
 

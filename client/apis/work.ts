@@ -13,7 +13,7 @@ export async function getWork(): Promise<DesWork[]> {
   }
 }
 
-export async function getOneWork(workId: number): Promise<DesWork[]> {
+export async function getOneWork(workId: number): Promise<DesWork> {
   try {
     const response = await request.get(`${rootUrl}/Work/${workId}`)
     return response.body

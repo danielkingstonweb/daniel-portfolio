@@ -44,6 +44,10 @@
     }
   }
 
+  &__section:nth-last-child(1){
+    padding-bottom: 15em;
+  }
+
   .left{
     flex-direction: row;
   }

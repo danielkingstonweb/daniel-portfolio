@@ -9,5 +9,6 @@ export async function getSingleWork(
   id: number,
   db = connection,
 ): Promise<DesWork[]> {
-  return await db('work').select().where('id', id)
+  console.log(id)
+  return await db('work').select().where('id', id).first()
 }

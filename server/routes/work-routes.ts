@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/Work/:workId', async (req, res) => {
+router.get('/:workId', async (req, res) => {
   try {
     const workId = Number(req.params.workId)
     const singleWork = await db.getSingleWork(workId)

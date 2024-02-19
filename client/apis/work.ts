@@ -17,6 +17,7 @@ export async function getOneWork(workId: number): Promise<DesWork[]> {
   try {
     const response = await request.get(`${rootUrl}/Work/${workId}`)
     return response.body
+    // return console.log('Bruh')
   } catch (error) {
     console.error(`Error fetching work with id ${workId}: `, error)
     throw new Error(`Failed to fetch work with id ${workId}`)

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { getWork } from '../apis/work'
 import { Link } from 'react-router-dom'
-import { HtmlHTMLAttributes, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'

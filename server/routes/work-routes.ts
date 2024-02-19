@@ -17,6 +17,8 @@ router.get('/', async (req, res) => {
 router.get('/Work/:workId', async (req, res) => {
   try {
     const workId = Number(req.params.workId)
+    const singleWork = await db.getSingleWork(workId)
+    res.json(singleWork)
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'uh oh, no Work!' })

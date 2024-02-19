@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { getWork } from '../apis/work'
-import { Link, NavLink } from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { HtmlHTMLAttributes, useEffect, useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
@@ -148,34 +148,35 @@ export default function Work() {
         </div>
         <div className="work__body">
           {workItems.map((work) => (
-            <div
-              key={work.id}
-              className={`work__section ${work.isLeft ? 'left' : 'right'}`}
-            >
-              <div className="work__section-left">
-                <div className="work-div work-div-top"></div>
-                <div className="work__title">
-                  <h3 className="work-title ">{work.title}</h3>
-                  <div className="work__subtitle">
-                    {getFieldArray(work.field).map((field, index) => (
-                      <h4 key={index} className="work-subtitle">
-                        {field}
-                      </h4>
-                    ))}
+            <Link key={work.id} to={`/Work/${work.id}`}>
+              <div
+                className={`work__section ${work.isLeft ? 'left' : 'right'}`}
+              >
+                <div className="work__section-left">
+                  <div className="work-div work-div-top"></div>
+                  <div className="work__title">
+                    <h3 className="work-title ">{work.title}</h3>
+                    <div className="work__subtitle">
+                      {getFieldArray(work.field).map((field, index) => (
+                        <h4 key={index} className="work-subtitle">
+                          {field}
+                        </h4>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="work-div work-div-bottom"></div>
+                </div>
+                <div className="work__section-right">
+                  <div className="work__img">
+                    <img
+                      src={getImageUrlArray(work.images)[0]}
+                      alt=""
+                      className="work-img"
+                    />
                   </div>
                 </div>
-                <div className="work-div work-div-bottom"></div>
               </div>
-              <div className="work__section-right">
-                <div className="work__img">
-                  <img
-                    src={getImageUrlArray(work.images)[0]}
-                    alt=""
-                    className="work-img"
-                  />
-                </div>
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

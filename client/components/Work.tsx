@@ -27,9 +27,8 @@ export default function Work() {
   const sectionTL = useRef()
   const imgTL = useRef()
   const workScope = useRef()
-  // const smoothScoll = useRef()
-  const smoothCont = useRef()
-
+  const smoother = useRef()
+  const scrollArea = useRef()
   const {
     data: myWork,
     isLoading,
@@ -41,19 +40,22 @@ export default function Work() {
     },
   })
 
-  useGSAP(() => {
-    const smoother = ScrollSmoother.create({
-      smooth: 2,
-      effects: true,
-      normalizeScroll: true,
-    })
-  })
-
+  useGSAP(
+    () => {
+      smoother.current = ScrollSmoother.create({
+        smooth: 2,
+        effects: true,
+        normalizeScroll: true,
+      })
+    },
+    { dependencies: [myWork], scope: scrollArea },
+  )
   const { contextSafe } = useGSAP(
     () => {
       const lines = gsap.utils.toArray('.work-div')
       const images = gsap.utils.toArray('.work-img')
       const sections = gsap.utils.toArray('.work__section')
+
       // console.log(images, sections)
 
       sections.map((section) => {
@@ -156,8 +158,8 @@ export default function Work() {
   return (
     <>
       <Nav />
-      <div id="smooth-wrapper">
-        <div id="smooth-content" ref={smoothCont}>
+      <div id="smooth-wrapper" ref={scrollArea}>
+        <div id="smooth-content">
           <div className="work" ref={workScope}>
             <div className="work__header">
               <h1 className="work-heading">MY WORK</h1>

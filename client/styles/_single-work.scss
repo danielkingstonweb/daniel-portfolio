@@ -73,4 +73,14 @@
     align-self: flex-start;
   }
 
+  &__imgs{
+    @include column-flex;
+    @include center-flex;
+  }
+
+  &-img{
+    width: 100%;
+    height: auto;
+  }
+
 }

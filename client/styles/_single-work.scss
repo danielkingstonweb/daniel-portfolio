@@ -1,7 +1,76 @@
 .single{
-  padding: 1%;
+  padding: 5%;
   padding-top: 10vh;
   width: 100%;
   @include column-flex;
   @include center-flex;
+
+  &-title{
+    @include display-font;
+    font-size: 12em;
+    text-transform: uppercase;
+    color: $black;
+  }
+
+  &__info{
+    padding-top: 3vh;
+    @include row-flex;
+    justify-content: space-between;
+    gap: 2em;
+    // padding: 1em;
+
+    &-div{
+      min-height: 100%;
+      width: 1px;
+      background: $black;
+    }
+
+    &-left{
+      padding-left: 2em;
+      flex-basis: 60%;
+      @include column-flex;
+      gap: 1em;
+    }
+
+    &-right{
+      padding-left: 2em;
+      flex-basis: 50%;
+      @include column-flex;
+    }
+
+    &-description{
+      width: 90%;
+    }
+
+    &-tech{
+      width: 90%;
+    }
+
+    p{
+      font-family: $body-font;
+      font-size: 1.8em;
+    }
+
+    &-field{
+      padding-left: 1em;
+      border-left: solid 1px $black;
+    }
+  }
+
+  &-info-title{
+      @include display-font;
+      font-size: 5em;
+      text-transform: uppercase; 
+  }
+
+  &-info-field{
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  &__back{
+    padding-top: 10vh;
+    align-self: flex-start;
+  }
+
 }

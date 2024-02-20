@@ -7,9 +7,16 @@ import { gsap } from 'gsap'
 import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
 import { CustomEase } from 'gsap/CustomEase'
 import { CustomWiggle } from 'gsap/all'
+import { ScrollSmoother } from 'gsap/ScrollSmoother'
 import { DesWork } from '../../models/deswork'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-gsap.registerPlugin(MorphSVGPlugin, CustomEase, CustomWiggle, ScrollTrigger)
+gsap.registerPlugin(
+  MorphSVGPlugin,
+  CustomEase,
+  CustomWiggle,
+  ScrollTrigger,
+  ScrollSmoother,
+)
 import Nav from './Nav'
 import { get } from 'superagent'
 
@@ -20,6 +27,8 @@ export default function Work() {
   const sectionTL = useRef()
   const imgTL = useRef()
   const workScope = useRef()
+  // const smoothScoll = useRef()
+  const smoothCont = useRef()
 
   const {
     data: myWork,
@@ -30,6 +39,14 @@ export default function Work() {
     queryFn: () => {
       return getWork()
     },
+  })
+
+  useGSAP(() => {
+    const smoother = ScrollSmoother.create({
+      smooth: 2,
+      effects: true,
+      normalizeScroll: true,
+    })
   })
 
   const { contextSafe } = useGSAP(
@@ -139,45 +156,51 @@ export default function Work() {
   return (
     <>
       <Nav />
-      <div className="work" ref={workScope}>
-        <div className="work__header">
-          <h1 className="work-heading">MY WORK</h1>
-          <h2 className="work-subheading">
-            A collection of work in Development & Design
-          </h2>
-        </div>
-        <div className="work__body">
-          {workItems.map((work) => (
-            <Link key={work.id} to={`/Work/${work.id}`}>
-              <div
-                className={`work__section ${work.isLeft ? 'left' : 'right'}`}
-              >
-                <div className="work__section-left">
-                  <div className="work-div work-div-top"></div>
-                  <div className="work__title">
-                    <h3 className="work-title ">{work.title}</h3>
-                    <div className="work__subtitle">
-                      {getFieldArray(work.field).map((field, index) => (
-                        <h4 key={index} className="work-subtitle">
-                          {field}
-                        </h4>
-                      ))}
+      <div id="smooth-wrapper">
+        <div id="smooth-content" ref={smoothCont}>
+          <div className="work" ref={workScope}>
+            <div className="work__header">
+              <h1 className="work-heading">MY WORK</h1>
+              <h2 className="work-subheading">
+                A collection of work in Development & Design
+              </h2>
+            </div>
+            <div className="work__body">
+              {workItems.map((work) => (
+                <Link key={work.id} to={`/Work/${work.id}`}>
+                  <div
+                    className={`work__section ${
+                      work.isLeft ? 'left' : 'right'
+                    }`}
+                  >
+                    <div className="work__section-left">
+                      <div className="work-div work-div-top"></div>
+                      <div className="work__title">
+                        <h3 className="work-title ">{work.title}</h3>
+                        <div className="work__subtitle">
+                          {getFieldArray(work.field).map((field, index) => (
+                            <h4 key={index} className="work-subtitle">
+                              {field}
+                            </h4>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="work-div work-div-bottom"></div>
+                    </div>
+                    <div className="work__section-right">
+                      <div className="work__img">
+                        <img
+                          src={getImageUrlArray(work.images)[0]}
+                          alt=""
+                          className="work-img"
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className="work-div work-div-bottom"></div>
-                </div>
-                <div className="work__section-right">
-                  <div className="work__img">
-                    <img
-                      src={getImageUrlArray(work.images)[0]}
-                      alt=""
-                      className="work-img"
-                    />
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>

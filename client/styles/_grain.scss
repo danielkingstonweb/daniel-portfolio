@@ -1,0 +1,13 @@
+.noise {
+  position: fixed;
+  z-index: 9999;
+  top: -300%;
+  left: -150%;
+  height: 600%;
+  width: 600%;
+  background-image: url(/client/images/other/noise.png);
+  background-size: 200px;
+  background-repeat: repeat;
+  opacity: .35;
+  pointer-events: none;
+}

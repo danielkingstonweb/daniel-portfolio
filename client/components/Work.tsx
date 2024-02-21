@@ -20,9 +20,12 @@ gsap.registerPlugin(
 import Nav from './Nav'
 import { get } from 'superagent'
 import ScrollPrompt from './ScrollPrompt'
+import Grain from './Grain'
+import ScrollTop from './ScrollTop'
 
 export default function Work() {
   const [hasLoaed, setHasLoaded] = useState()
+
 
   const divTL = useRef()
   const sectionTL = useRef()
@@ -158,10 +161,12 @@ export default function Work() {
 
   return (
     <>
+    <Grain />
       <Nav />
       <div id="smooth-wrapper" ref={scrollArea}>
         <div id="smooth-content">
           <div className="work" ref={workScope}>
+            <ScrollTop />
             <div className="work__header">
               <h1 className="work-heading">MY WORK</h1>
               <h2 className="work-subheading">

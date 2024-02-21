@@ -10,6 +10,9 @@ import { gsap } from 'gsap'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import ScrollPrompt from './ScrollPrompt'
+import Grain from './Grain'
+import ScrollTop from './ScrollTop'
+import Cursor from './Cursor'
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 export default function SingleWork() {
@@ -44,32 +47,35 @@ export default function SingleWork() {
     { dependencies: [singleWork], scope: scrollArea },
   )
 
-  const { contextSafe } = useGSAP(() => {
-    const images = gsap.utils.toArray('.single-img')
+  const { contextSafe } = useGSAP(
+    () => {
+      const images = gsap.utils.toArray('.single-img')
 
-    images.map((image) => {
-      gsap.set(image, {
-        y: 50,
-        opacity: 0,
+      images.map((image) => {
+        gsap.set(image, {
+          y: 50,
+          opacity: 0,
+        })
+
+        imgTL.current = gsap
+          .timeline({
+            scrollTrigger: {
+              // scrub: true,
+              trigger: image,
+              start: 'top 510',
+              toggleActions: 'play none none reverse',
+              // markers: true,
+            },
+          })
+          .to(image, {
+            y: 0,
+            opacity: 1,
+            ease: 'power3.out',
+          })
       })
-
-      imgTL.current = gsap
-        .timeline({
-          scrollTrigger: {
-            // scrub: true,
-            trigger: image,
-            start: 'top 510',
-            toggleActions: 'play none none reverse',
-            // markers: true,
-          },
-        })
-        .to(image, {
-          y: 0,
-          opacity: 1,
-          ease: 'power3.out',
-        })
-    })
-  })
+    },
+    { dependencies: [singleWork], scope: singleWorkScope },
+  )
 
   if (isError) {
     return <h1>Cuh This Shit Browken</h1>
@@ -93,10 +99,13 @@ export default function SingleWork() {
 
   return (
     <>
+      <Grain />
       <Nav />
+      <Cursor />
       <div id="smooth-wrapper" ref={scrollArea}>
         <div id="smooth-content">
           <div className="single" ref={singleWorkScope}>
+            <ScrollTop />
             <div className="single__header">
               <h1 className="single-title">{singleWork.title}</h1>
             </div>

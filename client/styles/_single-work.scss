@@ -55,6 +55,10 @@
       padding-left: 1em;
       border-left: solid 1px $black;
     }
+
+    &-scroll{
+      @include column-flex;
+    }
   }
 
   &-info-title{
@@ -74,13 +78,16 @@
   }
 
   &__imgs{
+    padding-top: 5em;
     @include column-flex;
     @include center-flex;
+    gap: 5em;
   }
 
   &-img{
     width: 100%;
     height: auto;
   }
+
 
 }

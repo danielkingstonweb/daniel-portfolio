@@ -9,12 +9,14 @@ import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
+import ScrollPrompt from './ScrollPrompt'
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 export default function SingleWork() {
   const { workId } = useParams<{ workId: string }>()
   const smoother = useRef()
   const scrollArea = useRef()
+
   const {
     data: singleWork,
     isLoading,
@@ -114,9 +116,10 @@ export default function SingleWork() {
                   </div>
                 ) : null}
               </div>
-              <div className="single__info-scroll"></div>
+              <div className="single__info-div"></div>
+              <ScrollPrompt />
             </div>
-            <div className="single_imgs">
+            <div className="single__imgs">
               <img src={`/` + imgUrl[0]} alt="" className="single-img" />
               <img src={`/` + imgUrl[1]} alt="" className="single-img" />
               <img src={`/` + imgUrl[2]} alt="" className="single-img" />

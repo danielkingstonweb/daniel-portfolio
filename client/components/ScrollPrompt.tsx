@@ -2,7 +2,6 @@ import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
 
-
 export default function ScrollPrompt() {
   const scrollPromptScope = useRef()
   const scrollPromptTL = useRef()
@@ -11,6 +10,8 @@ export default function ScrollPrompt() {
     () => {
       gsap.set('.prompt-svg', {
         opacity: 0,
+        scaleX: '60%',
+        scaleY: '60%',
       })
 
       scrollPromptTL.current = gsap

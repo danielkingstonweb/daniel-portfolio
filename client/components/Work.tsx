@@ -19,6 +19,7 @@ gsap.registerPlugin(
 )
 import Nav from './Nav'
 import { get } from 'superagent'
+import ScrollPrompt from './ScrollPrompt'
 
 export default function Work() {
   const [hasLoaed, setHasLoaded] = useState()
@@ -93,7 +94,7 @@ export default function Work() {
             scrollTrigger: {
               // scrub: true,
               trigger: image,
-              start: 'top 450',
+              start: 'top 510',
               toggleActions: 'play none none reverse',
               // markers: true,
             },
@@ -115,7 +116,7 @@ export default function Work() {
             scrollTrigger: {
               // scrub: true,
               trigger: line,
-              start: 'top 380',
+              start: 'top 420',
               toggleActions: 'play none none reverse',
               // markers: true,
             },
@@ -167,6 +168,7 @@ export default function Work() {
                 A collection of work in Development & Design
               </h2>
             </div>
+            <ScrollPrompt />
             <div className="work__body">
               {workItems.map((work) => (
                 <Link key={work.id} to={`/Work/${work.id}`}>

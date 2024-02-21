@@ -4,7 +4,11 @@
   width: 100%;
   @include column-flex;
   @include center-flex;
-  gap: 10em;
+  gap: 5em;
+
+  a {
+    color: $black;
+  }
   
   &__header{
     @include column-flex;

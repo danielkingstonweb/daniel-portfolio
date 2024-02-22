@@ -26,7 +26,6 @@ import ScrollTop from './ScrollTop'
 export default function Work() {
   const [hasLoaed, setHasLoaded] = useState()
 
-
   const divTL = useRef()
   const sectionTL = useRef()
   const imgTL = useRef()
@@ -54,7 +53,8 @@ export default function Work() {
     },
     { dependencies: [myWork], scope: scrollArea },
   )
-  const { contextSafe } = useGSAP(
+
+  useGSAP(
     () => {
       const lines = gsap.utils.toArray('.work-div')
       const images = gsap.utils.toArray('.work-img')
@@ -161,7 +161,7 @@ export default function Work() {
 
   return (
     <>
-    <Grain />
+      <Grain />
       <Nav />
       <div id="smooth-wrapper" ref={scrollArea}>
         <div id="smooth-content">

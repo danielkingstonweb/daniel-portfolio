@@ -47,7 +47,7 @@ export default function SingleWork() {
     { dependencies: [singleWork], scope: scrollArea },
   )
 
-  const { contextSafe } = useGSAP(
+  useGSAP(
     () => {
       const images = gsap.utils.toArray('.single-img')
 

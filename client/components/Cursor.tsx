@@ -6,11 +6,9 @@ export default function Cursor() {
   const cursorFollow = useRef(null)
 
   const { contextSafe } = useGSAP((e) => {
-    gsap.to(cursorFollow, {
-      duration: 0.4,
-      x: e.clientX,
-      y: e.clientY,
-      ease: 'power2.out',
+    gsap.set(cursorFollow.current, {
+      xPercent: -50,
+      yPercent: -50,
     })
   })
   return <div ref={cursorFollow} className="cursor-follower"></div>

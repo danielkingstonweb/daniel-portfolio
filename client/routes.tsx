@@ -10,17 +10,63 @@ import Work from './components/Work'
 import Contact from './components/Contact'
 import Photography from './components/Photography'
 import SingleWork from './components/SingleWork'
+import { TransitionProvider } from './context/TransitionContext'
+import Transitions from './components/Transitions'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<App />}>
-        <Route index element={<Home />} />
-        <Route path="Work" element={<Work />} />
-        <Route path="Contact" element={<Contact />} />
-        <Route path="Photography" element={<Photography />} />
-        <Route path="Work/:workId" element={<SingleWork />} />
-      </Route>
+      <TransitionProvider>
+        <Route
+          path="/"
+          element={
+            <Transitions>
+              <App />
+            </Transitions>
+          }
+        >
+          <Route
+            index
+            element={
+              <Transitions>
+                <Home />
+              </Transitions>
+            }
+          />
+          <Route
+            path="Work"
+            element={
+              <Transitions>
+                <Work />
+              </Transitions>
+            }
+          />
+          <Route
+            path="Contact"
+            element={
+              <Transitions>
+                <Contact />
+              </Transitions>
+            }
+          />
+          <Route
+            path="Photography"
+            element={
+              <Transitions>
+                <Photography />
+              </Transitions>
+            }
+          />
+          <Route
+            path="Work/:workId"
+            element={
+              <Transitions>
+                <SingleWork />
+              </Transitions>
+            }
+          />
+        </Route>
+      </TransitionProvider>
     </>,
   ),
 )

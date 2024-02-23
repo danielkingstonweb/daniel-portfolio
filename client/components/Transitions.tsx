@@ -1,35 +1,42 @@
-import { useContext } from 'react'
+import { useContext, useRef } from 'react'
 import { SwitchTransition, Transition } from 'react-transition-group'
 import { useLocation } from 'react-router-dom'
 import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 import TransitionContext from '../context/TransitionContext'
 
-export default function Transitions({ children }) {
+const Transitions: React.FC = ({ children }) => {
   const location = useLocation()
   const { toggleCompleted } = useContext(TransitionContext)
+  const nodeRef = useRef(null)
 
   return (
     <SwitchTransition>
       <Transition
         key={location.pathname}
+        nodeRef={nodeRef}
         timeout={500}
-        onEnter={(node) => {
+        onEnter={() => {
           toggleCompleted(false)
-          gsap.set(node, { opacity: 0, scale: 0.8, xPercent: -100 })
+          gsap.set(nodeRef.current, {
+            opacity: 0,
+            scale: 0.8,
+            xPercent: -100,
+          })
           gsap
             .timeline({
               paused: true,
               onComplete: () => toggleCompleted(true),
             })
-            .to(node, { autoAlpha: 1, xPercent: 0, duration: 0.25 })
-            .to(node, { scale: 1, duration: 0.25 })
+            .to(nodeRef.current, { autoAlpha: 1, xPercent: 0, duration: 0.25 })
+            .to(nodeRef.current, { scale: 1, duration: 0.25 })
             .play()
         }}
-        onExit={(node) => {
+        onExit={() => {
           gsap
             .timeline({ paused: true })
-            .to(node, { scale: 0.8, duration: 0.2 })
-            .to(node, { xPercent: 100, autoAlpha: 0, duration: 0.2 })
+            .to(nodeRef.current, { scale: 0.8, duration: 0.2 })
+            .to(nodeRef.current, { xPercent: 100, autoAlpha: 0, duration: 0.2 })
             .play()
         }}
       >
@@ -38,3 +45,5 @@ export default function Transitions({ children }) {
     </SwitchTransition>
   )
 }
+
+export default Transitions

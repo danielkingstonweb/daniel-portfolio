@@ -1,5 +1,6 @@
 import {
   Route,
+  Routes,
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom'
@@ -16,15 +17,7 @@ import Transitions from './components/Transitions'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <TransitionProvider>
-        <Route
-          path="/"
-          element={
-            <Transitions>
-              <App />
-            </Transitions>
-          }
-        >
+      <Route path="/" element={<App />}>
           <Route
             index
             element={
@@ -65,8 +58,7 @@ const router = createBrowserRouter(
               </Transitions>
             }
           />
-        </Route>
-      </TransitionProvider>
+      </Route>
     </>,
   ),
 )

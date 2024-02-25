@@ -1,11 +1,12 @@
 import { useContext, useRef } from 'react'
 import { SwitchTransition, Transition } from 'react-transition-group'
 import { useLocation } from 'react-router-dom'
+import { TransitionProps } from 'react-transition-group/Transition'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import TransitionContext from '../context/TransitionContext'
 
-const Transitions: React.FC = ({ children }) => {
+const Transitions = ({ children }: TransitionProps) => {
   const location = useLocation()
   const { toggleCompleted } = useContext(TransitionContext)
   const nodeRef = useRef(null)

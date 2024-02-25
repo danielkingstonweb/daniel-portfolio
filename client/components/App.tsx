@@ -7,9 +7,9 @@ function App() {
 
   return (
     <>
-      <TransitionProvider>
+      {/* <TransitionProvider> */}
         <Outlet />
-      </TransitionProvider>
+      {/* </TransitionProvider> */}
     </>
   )
 }

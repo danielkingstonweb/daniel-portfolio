@@ -11,7 +11,6 @@ import Work from './components/Work'
 import Contact from './components/Contact'
 import Photography from './components/Photography'
 import SingleWork from './components/SingleWork'
-import { TransitionProvider } from './context/TransitionContext'
 import Transitions from './components/Transitions'
 
 const router = createBrowserRouter(
@@ -29,7 +28,7 @@ const router = createBrowserRouter(
           <Route
             path="Work"
             element={
-              <Transitions>
+              <Transitions addEndListener={Work}>
                 <Work />
               </Transitions>
             }

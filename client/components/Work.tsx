@@ -29,9 +29,9 @@ export default function Work() {
   const divTL = useRef()
   const sectionTL = useRef()
   const imgTL = useRef()
-  const workScope = useRef()
-  const smoother = useRef()
-  const scrollArea = useRef()
+  const workScope = useRef(null)
+  const smoother = useRef(null)
+  const scrollArea = useRef(null)
   const {
     data: myWork,
     isLoading,
@@ -45,7 +45,7 @@ export default function Work() {
 
   useGSAP(
     () => {
-      smoother.current = ScrollSmoother.create({
+      ScrollSmoother.create({
         smooth: 2,
         effects: true,
         normalizeScroll: true,

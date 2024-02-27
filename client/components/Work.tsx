@@ -29,9 +29,9 @@ export default function Work() {
   const divTL = useRef()
   const sectionTL = useRef()
   const imgTL = useRef()
-  const workScope = useRef()
-  const smoother = useRef()
-  const scrollArea = useRef()
+  const workScope = useRef(null)
+  const smoother = useRef(null)
+  const scrollArea = useRef(null)
   const {
     data: myWork,
     isLoading,
@@ -45,11 +45,13 @@ export default function Work() {
 
   useGSAP(
     () => {
-      smoother.current = ScrollSmoother.create({
-        smooth: 2,
-        effects: true,
-        normalizeScroll: true,
-      })
+      if (!isLoading) {
+        ScrollSmoother.create({
+          smooth: 2,
+          effects: true,
+          normalizeScroll: true,
+        })
+      }
     },
     { dependencies: [myWork], scope: scrollArea },
   )
@@ -163,8 +165,8 @@ export default function Work() {
     <>
       <Grain />
       <Nav />
-      <div id="smooth-wrapper" ref={scrollArea}>
-        <div id="smooth-content">
+      <div id="smooth-wrapper">
+        <div id="smooth-content" ref={scrollArea}>
           <div className="work" ref={workScope}>
             <ScrollTop />
             <div className="work__header">

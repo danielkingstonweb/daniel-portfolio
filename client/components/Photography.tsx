@@ -3,7 +3,7 @@ import Nav from './Nav'
 export default function Photography() {
   return (
     <>
-      <Nav />
+      {/* <Nav /> */}
 
       <h1>PHOTOGRPHDEEZNUTS</h1>
     </>

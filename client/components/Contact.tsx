@@ -3,7 +3,7 @@ import Nav from './Nav'
 export default function Contact() {
   return (
     <>
-      <Nav />
+      {/* <Nav /> */}
       <h1>CONTACTDEEZNUTS</h1>
     </>
   )

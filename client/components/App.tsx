@@ -1,14 +1,12 @@
 import { Outlet } from 'react-router-dom'
-import { useFruits } from '../hooks/useFruits.ts'
+import Layout from './Layout'
 
 function App() {
-  // const { data } = useFruits()
-
   return (
     <>
-      {/* <main> */}
-      <Outlet />
-      {/* </main> */}
+      <main>
+        <Outlet />
+      </main>
     </>
   )
 }

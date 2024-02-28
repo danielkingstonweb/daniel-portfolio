@@ -99,8 +99,8 @@ export default function SingleWork() {
 
   return (
     <>
-      <Grain />
-      <Nav />
+      {/* <Grain />
+      <Nav /> */}
       <Cursor />
       <div id="smooth-wrapper" ref={scrollArea}>
         <div id="smooth-content">

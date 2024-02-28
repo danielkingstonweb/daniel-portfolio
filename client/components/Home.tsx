@@ -147,8 +147,8 @@ export default function Home() {
 
   return (
     <>
-      <Grain />
-      <Nav />
+      {/* <Grain />
+      <Nav /> */}
       <div className="landing-bg">
         <div className="landing-img-box">
           <svg

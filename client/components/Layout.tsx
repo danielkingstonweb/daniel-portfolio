@@ -1,14 +1,15 @@
 import { Outlet } from 'react-router-dom'
-import Layout from './Layout'
+import Grain from './Grain'
+import Nav from './Nav'
 
-function App() {
+export default function Layout() {
   return (
     <>
+      <Grain />
+      <Nav />
       <main>
         <Outlet />
       </main>
     </>
   )
 }
-
-export default App

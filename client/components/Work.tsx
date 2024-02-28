@@ -161,8 +161,8 @@ export default function Work() {
 
   return (
     <>
-      <Grain />
-      <Nav />
+      {/* <Grain />
+      <Nav /> */}
       <div id="smooth-wrapper" ref={scrollArea}>
         <div id="smooth-content">
           <div className="work" ref={workScope}>

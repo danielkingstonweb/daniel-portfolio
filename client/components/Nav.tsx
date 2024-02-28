@@ -204,7 +204,6 @@ export default function Nav() {
       },
       '<',
     )
-    console.log(navBG.current)
 
     // HOME HOVER SHAPE ANIMATION
     navTLHome.current.to(

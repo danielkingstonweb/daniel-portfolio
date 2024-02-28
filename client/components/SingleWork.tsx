@@ -8,17 +8,13 @@ import { ScrollSmoother } from 'gsap/ScrollSmoother'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { Link } from 'react-router-dom'
-import Nav from './Nav'
 import ScrollPrompt from './ScrollPrompt'
-import Grain from './Grain'
 import ScrollTop from './ScrollTop'
 import Cursor from './Cursor'
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 export default function SingleWork() {
   const { workId } = useParams<{ workId: string }>()
-  const smoother = useRef()
-  const scrollArea = useRef()
   const singleWorkScope = useRef()
   const imgTL = useRef()
 
@@ -36,16 +32,7 @@ export default function SingleWork() {
   // const imageUrls = singleWork.images.split(',')
   const imgUrl = singleWork?.images.split(',')
 
-  useGSAP(
-    () => {
-      smoother.current = ScrollSmoother.create({
-        smooth: 2,
-        effects: true,
-        normalizeScroll: true,
-      })
-    },
-    { dependencies: [singleWork], scope: scrollArea },
-  )
+
 
   useGSAP(
     () => {
@@ -99,11 +86,6 @@ export default function SingleWork() {
 
   return (
     <>
-      {/* <Grain />
-      <Nav /> */}
-      <Cursor />
-      <div id="smooth-wrapper" ref={scrollArea}>
-        <div id="smooth-content">
           <div className="single" ref={singleWorkScope}>
             <ScrollTop />
             <div className="single__header">
@@ -168,8 +150,6 @@ export default function SingleWork() {
               ))}
             </div>
           </div>
-        </div>
-      </div>
     </>
   )
 }

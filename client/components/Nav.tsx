@@ -608,6 +608,7 @@ export default function Nav() {
                 <NavLink
                   onMouseEnter={onMouseEnterHome}
                   onMouseLeave={onMouseLeaveHome}
+                  onClick={timelineToggle}
                   ref={link1}
                   to="/"
                   className="nav-item"
@@ -621,6 +622,7 @@ export default function Nav() {
                 <NavLink
                   onMouseEnter={onMouseEnterWork}
                   onMouseLeave={onMouseLeaveWork}
+                  onClick={timelineToggle}
                   ref={link2}
                   className="nav-item"
                   to="/Work"
@@ -634,6 +636,7 @@ export default function Nav() {
                 <NavLink
                   onMouseEnter={onMouseEnterPhot}
                   onMouseLeave={onMouseLeavePhot}
+                  onClick={timelineToggle}
                   ref={link3}
                   className="nav-item"
                   to="/Photography"
@@ -647,6 +650,7 @@ export default function Nav() {
                 <NavLink
                   onMouseEnter={onMouseEnterCont}
                   onMouseLeave={onMouseLeaveCont}
+                  onClick={timelineToggle}
                   ref={link4}
                   className="nav-item"
                   to="/Contact"

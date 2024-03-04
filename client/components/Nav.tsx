@@ -186,6 +186,9 @@ export default function Nav() {
   })
 
   const onMouseEnterHome = contextSafe(({ currentTarget }) => {
+    if (navTLHome.current && navTLHome.current.isActive()) {
+      return
+    }
     // HOME HOVER LINK ANIMATION
     navTLHome.current = gsap.timeline().to(currentTarget, {
       // duration,
@@ -196,6 +199,7 @@ export default function Nav() {
       color: COLORS.white,
     })
     // HOME HOVER BG ANIMATION
+
     navTLHome.current.to(
       navBG.current,
       {
@@ -205,19 +209,25 @@ export default function Nav() {
       '<',
     )
 
-    // HOME HOVER SHAPE ANIMATION
-    navTLHome.current.to(
-      shape1.current,
-      {
-        morphSVG: {
-          shape: '.st0',
-          type: 'rotational',
+    // console.log(shape1.current)
+
+    if (gsap.getProperty(navBG.current, 'backgroundColor') != COLORS.orange) {
+      // HOME HOVER SHAPE ANIMATION
+      console.log('bruh')
+
+      navTLHome.current.to(
+        shape1.current,
+        {
+          morphSVG: {
+            shape: '.st0',
+            type: 'rotational',
+          },
+          // ease: ease,
+          fill: COLORS.red,
         },
-        // ease: ease,
-        fill: COLORS.red,
-      },
-      '<',
-    )
+        '<',
+      )
+    }
   })
 
   const onMouseLeaveHome = contextSafe(({ currentTarget }) => {

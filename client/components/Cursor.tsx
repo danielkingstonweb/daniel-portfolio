@@ -1,17 +1,17 @@
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
+import { COLORS } from './Values'
 
 export default function Cursor() {
-  // Using useRef() to store the cursor element reference
   const cursorRef = useRef(null)
+  const cursorDotRef = useRef(null)
 
-  // Using useGSAP() hook to manage GSAP animations
   const { contextSafe } = useGSAP()
 
-  // Wrapping the animation functions with contextSafe()
   const animateCursor = contextSafe(() => {
     const cursor = cursorRef.current
+    const cursorDot = cursorDotRef.current
     if (!cursor) return
 
     window.addEventListener('mousemove', (e) => {
@@ -19,13 +19,21 @@ export default function Cursor() {
       const isTargetLinkOrBtn =
         target?.closest('a') || target?.closest('button')
 
-      gsap.to(cursor, {
-        x: x + 3,
-        y: y + 3,
+      gsap.to(cursorDot, {
+        x: x + 10,
+        y: y + 10,
         duration: 0.7,
-        ease: 'power4',
+        ease: 'back.out(1.7)',
+      })
+
+      gsap.to(cursor, {
+        x: x,
+        y: y,
+        duration: 0.7,
+        ease: 'power1.out',
         opacity: isTargetLinkOrBtn ? 0.6 : 1,
-        transform: `scale(${isTargetLinkOrBtn ? 3.5 : 1})`,
+        background: isTargetLinkOrBtn ? COLORS.purple : 'none',
+        transform: `scale(${isTargetLinkOrBtn ? 2.5 : 1})`,
       })
     })
 
@@ -37,8 +45,12 @@ export default function Cursor() {
     })
   })
 
-  // Call animateCursor once when component mounts
   animateCursor()
 
-  return <div className="cursor-follower" ref={cursorRef} />
+  return (
+    <>
+      <div className="cursor-dot" ref={cursorDotRef}></div>
+      <div className="cursor-follower" ref={cursorRef} />
+    </>
+  )
 }

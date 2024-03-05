@@ -20,15 +20,15 @@ export default function Cursor() {
         target?.closest('a') || target?.closest('button')
 
       gsap.to(cursorDot, {
-        x: x + 10,
-        y: y + 10,
+        x: x,
+        y: y,
         duration: 0.7,
         ease: 'back.out(1.7)',
       })
 
       gsap.to(cursor, {
-        x: x,
-        y: y,
+        x: x - 10,
+        y: y - 10,
         duration: 0.7,
         ease: 'power1.out',
         opacity: isTargetLinkOrBtn ? 0.6 : 1,

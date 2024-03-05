@@ -27,8 +27,8 @@ export default function Cursor() {
       })
 
       gsap.to(cursor, {
-        x: x - 10,
-        y: y - 10,
+        x: x - 11,
+        y: y - 11,
         duration: 0.7,
         ease: 'power1.out',
         opacity: isTargetLinkOrBtn ? 0.6 : 1,

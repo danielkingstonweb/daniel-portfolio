@@ -58,7 +58,7 @@ export default function Contact() {
               </div>
             </div>
             <div className="contact__intro-bottom-right">
-              <img src="" alt="" className="contact__intro-bottom-img" />
+              <div className="contact__intro-img"></div>
             </div>
           </div>
         </div>

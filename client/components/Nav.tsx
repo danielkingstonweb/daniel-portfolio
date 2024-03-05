@@ -380,7 +380,7 @@ export default function Nav() {
       <div ref={navArea} className="nav-area">
         <div ref={toggleContainer} className="nav-bar">
           <div className="nav__logo"></div>
-          <div className="nav-toggle" id="navToggle">
+          <button className="nav-toggle" id="navToggle">
             <div onClick={timelineToggle} className="nav__hamburger">
               <svg
                 version="1.1"
@@ -492,7 +492,7 @@ export default function Nav() {
                 </g>
               </svg>
             </div>
-          </div>
+          </button>
         </div>
         <div ref={navBG} className="nav-bg">
           <svg

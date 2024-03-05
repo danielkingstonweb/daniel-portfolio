@@ -1,18 +1,19 @@
-.cursor-follower{
+.cursor-follower {
   position: fixed;
-  top: -20px;
-  width: 30px;
-  height: 30px;
-  background: $orange;
-  border-radius: 50%;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: rgba(144, 70, 254, 0.6);
+  opacity: 0;
+  z-index: 10000;
+  user-select: none;
   pointer-events: none;
-  z-index: 9999;
-  transition: all .2s ease;
 }
-
-.cursor-follower.active {
-  width: 50px;
-  height: 50px;
-  background: transparent;
-  border: 1px solid var(--yellow);
-}
+// .cursor-follower.active {
+//   width: 50px;
+//   height: 50px;
+//   background: transparent;
+//   border: 1px solid var(--yellow);
+// }

@@ -8,6 +8,11 @@
   justify-content: space-between;
   // display: none;
 
+  &-toggle{
+    background: none;
+    border: none;
+  }
+
   &-bar{
     position: fixed;
     height: 10vh;

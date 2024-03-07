@@ -37,7 +37,7 @@ export default function Nav() {
   // Word effects timelines
   const navTLHome = useRef()
   const navTLWork = useRef()
-  const navTLPhot = useRef()
+  const navTLAbou = useRef()
   const navTLCont = useRef()
 
   // const { contextSafe } = useGSAP()
@@ -246,7 +246,7 @@ export default function Nav() {
       // duration,
       // color: 'red',
       scrambleText: {
-        text: 'DEV | DESIGN',
+        text: 'MY WORK',
       },
 
       color: COLORS.white,
@@ -281,23 +281,23 @@ export default function Nav() {
       // duration,
       // color: 'red',
       scrambleText: {
-        text: 'DEV | DESIGN',
+        text: 'MY WORK',
       },
       color: COLORS.black,
     })
   })
 
-  const onMouseEnterPhot = contextSafe(({ currentTarget }) => {
-    navTLPhot.current = gsap.timeline().to(currentTarget, {
+  const onMouseEnterAbou = contextSafe(({ currentTarget }) => {
+    navTLAbou.current = gsap.timeline().to(currentTarget, {
       // duration,
       // color: 'red',
       scrambleText: {
-        text: 'PHOTOGRAPHY',
+        text: 'ABOUT',
       },
       color: COLORS.white,
     })
-    // PHOTOGRAPHY HOVER BG ANIMATION
-    navTLPhot.current.to(
+    // ABOUT HOVER BG ANIMATION
+    navTLAbou.current.to(
       navBG.current,
       {
         // duration,
@@ -305,8 +305,8 @@ export default function Nav() {
       },
       '<',
     )
-    // PHOTOGRAPHY HOVER SHAPE ANIMATION
-    navTLPhot.current.to(
+    // ABOUT HOVER SHAPE ANIMATION
+    navTLAbou.current.to(
       shape1.current,
       {
         morphSVG: {
@@ -320,12 +320,12 @@ export default function Nav() {
     )
   })
 
-  const onMouseLeavePhot = contextSafe(({ currentTarget }) => {
-    navTLPhot.current.to(currentTarget, {
+  const onMouseLeaveAbou = contextSafe(({ currentTarget }) => {
+    navTLAbou.current.to(currentTarget, {
       // duration,
       // color: 'red',
       scrambleText: {
-        text: 'PHOTOGRAPHY',
+        text: 'ABOUT',
       },
       color: COLORS.black,
     })
@@ -637,21 +637,21 @@ export default function Nav() {
                   className="nav-item"
                   to="/Work"
                 >
-                  DEV | DESIGN
+                  MY WORK
                 </NavLink>
                 {/* <div ref={under2} className="nav-under"></div> */}
                 <div className="nav-reveal"></div>
               </li>
               <li className="nav__item">
                 <NavLink
-                  onMouseEnter={onMouseEnterPhot}
-                  onMouseLeave={onMouseLeavePhot}
+                  onMouseEnter={onMouseEnterAbou}
+                  onMouseLeave={onMouseLeaveAbou}
                   onClick={timelineToggle}
                   ref={link3}
                   className="nav-item"
-                  to="/Photography"
+                  to="/About"
                 >
-                  PHOTOGRAPHY
+                  ABOUT
                 </NavLink>
                 {/* <div ref={under3} className="nav-under"></div> */}
                 <div className="nav-reveal"></div>
@@ -663,9 +663,9 @@ export default function Nav() {
                   onClick={timelineToggle}
                   ref={link4}
                   className="nav-item"
-                  to="/About"
+                  to="/Contact"
                 >
-                  ABOUT
+                  CONTACT
                 </NavLink>
                 {/* <div ref={under4} className="nav-under"></div> */}
                 <div className="nav-reveal"></div>

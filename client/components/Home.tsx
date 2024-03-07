@@ -297,13 +297,16 @@ export default function Home() {
           <div className="landing-bottom__left">
             <ul className="landing__nav">
               <Link to="Work">
-                <li className="landing-nav-item">DEV | DESIGN WORK</li>
+                <li className="landing-nav-item">WORK</li>
               </Link>
-              <Link to="Photography">
+              {/* <Link to="Photography">
                 <li className="landing-nav-item">PHOTOGRAPHY</li>
-              </Link>
+              </Link> */}
               <Link to="About">
                 <li className="landing-nav-item">ABOUT</li>
+              </Link>
+              <Link to="Contact">
+                <li className="landing-nav-item">CONTACT</li>
               </Link>
             </ul>
           </div>

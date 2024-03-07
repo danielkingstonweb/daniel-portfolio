@@ -7,7 +7,7 @@ import Layout from './components/Layout'
 import App from './components/App'
 import Home from './components/Home'
 import Work from './components/Work'
-import Contact from './components/Contact'
+import About from './components/About'
 import Photography from './components/Photography'
 import SingleWork from './components/SingleWork'
 
@@ -17,7 +17,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="Work" element={<Work />} />
-        <Route path="Contact" element={<Contact />} />
+        <Route path="About" element={<About />} />
         <Route path="Photography" element={<Photography />} />
         <Route path="Work/:workId" element={<SingleWork />} />
       </Route>

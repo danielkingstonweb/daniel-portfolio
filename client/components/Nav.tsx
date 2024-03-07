@@ -663,9 +663,9 @@ export default function Nav() {
                   onClick={timelineToggle}
                   ref={link4}
                   className="nav-item"
-                  to="/Contact"
+                  to="/About"
                 >
-                  CONTACT
+                  ABOUT
                 </NavLink>
                 {/* <div ref={under4} className="nav-under"></div> */}
                 <div className="nav-reveal"></div>

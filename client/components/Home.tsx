@@ -302,8 +302,8 @@ export default function Home() {
               <Link to="Photography">
                 <li className="landing-nav-item">PHOTOGRAPHY</li>
               </Link>
-              <Link to="Contact">
-                <li className="landing-nav-item">GET IN TOUCH</li>
+              <Link to="About">
+                <li className="landing-nav-item">ABOUT</li>
               </Link>
             </ul>
           </div>

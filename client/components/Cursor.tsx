@@ -50,7 +50,7 @@ export default function Cursor() {
       yDto(cursorPosition.top)
 
       gsap.to(cursor, {
-        duration: 0.7,
+        duration: 0.5,
         ease: 'power1.out',
         opacity: isTargetLinkOrBtn ? 0.6 : 1,
         background: isTargetLinkOrBtn ? COLORS.orange : 'none',

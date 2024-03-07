@@ -14,25 +14,48 @@ export default function Cursor() {
     const cursorDot = cursorDotRef.current
     if (!cursor) return
 
+    const xDto = gsap.quickTo(cursorDot, 'left', {
+      duration: 0.7,
+      ease: 'back.out(1.7)',
+    })
+
+    const yDto = gsap.quickTo(cursorDot, 'top', {
+      duration: 0.7,
+      ease: 'back.out(1.7)',
+    })
+
+    const xCto = gsap.quickTo(cursor, 'left', {
+      duration: 0.7,
+      ease: 'power1.out',
+    })
+
+    const yCto = gsap.quickTo(cursor, 'top', {
+      duration: 0.7,
+      ease: 'power1.out',
+    })
+
     window.addEventListener('mousemove', (e) => {
-      const { target, x, y } = e
+      const { target } = e
       const isTargetLinkOrBtn =
         target?.closest('a') || target?.closest('button')
 
-      gsap.to(cursorDot, {
-        x: x,
-        y: y,
-        duration: 0.7,
-        ease: 'back.out(1.7)',
-      })
+      const cursorPosition = {
+        left: e.clientX,
+        top: e.clientY,
+      }
+
+      xCto(cursorPosition.left - 11)
+      yCto(cursorPosition.top - 11)
+      xDto(cursorPosition.left)
+      yDto(cursorPosition.top)
 
       gsap.to(cursor, {
-        x: x - 11,
-        y: y - 11,
         duration: 0.7,
         ease: 'power1.out',
         opacity: isTargetLinkOrBtn ? 0.6 : 1,
-        background: isTargetLinkOrBtn ? COLORS.purple : 'none',
+        background: isTargetLinkOrBtn ? COLORS.orange : 'none',
+        borderColor: isTargetLinkOrBtn ? COLORS.orange : COLORS.purple,
+        mixBlendMode: isTargetLinkOrBtn ? 'difference' : 'normal',
         transform: `scale(${isTargetLinkOrBtn ? 2.5 : 1})`,
       })
     })

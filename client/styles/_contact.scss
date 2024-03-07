@@ -1,0 +1,47 @@
+.contact{
+  padding: 1%;
+  padding-top: 10vh;
+  @include column-flex;
+  gap: 5em;
+  @include center-flex;
+
+  &-title{
+    @include display-font;
+    font-size: 4rem;
+    text-transform: uppercase;
+  }
+
+  &-email{
+    @include display-font;
+    font-size: 9rem;
+    text-transform: uppercase;
+  }
+
+  &__links{
+    height: 10vh;
+  }
+
+  &-links{
+    @include row-flex;
+    gap: 3em;
+    height: 10vh;
+
+    &__icons{
+      height: 10vh;
+      @include column-flex;
+      overflow: hidden;
+    }
+
+    &-icon{
+      scale: 100%;
+    }
+  }
+
+  &-link{
+    @include row-flex;
+    @include center-flex;
+    height: 10vh;
+  }
+
+  
+}

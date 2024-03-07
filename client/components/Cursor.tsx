@@ -44,10 +44,10 @@ export default function Cursor() {
         top: e.clientY,
       }
 
-      xCto(cursorPosition.left - 11)
-      yCto(cursorPosition.top - 11)
-      xDto(cursorPosition.left)
-      yDto(cursorPosition.top)
+      xCto(cursorPosition.left - 12)
+      yCto(cursorPosition.top - 12)
+      xDto(cursorPosition.left - 2)
+      yDto(cursorPosition.top - 2)
 
       gsap.to(cursor, {
         duration: 0.5,

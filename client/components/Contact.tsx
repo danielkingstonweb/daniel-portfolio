@@ -5,8 +5,14 @@ import { COLORS } from './Values'
 
 export default function Contact() {
   const iconArea = useRef(null)
+  const emailRef = useRef(null)
+  const lineRef = useRef(null)
 
-  const { contextSafe } = useGSAP()
+  const { contextSafe } = useGSAP(() => {
+    gsap.set(lineRef.current, {
+      scaleX: 0,
+    })
+  })
 
   const onMouseEnter = contextSafe(({ currentTarget }) => {
     const icons = gsap.utils.toArray('.contact-links-icon', currentTarget)
@@ -36,16 +42,75 @@ export default function Contact() {
     })
   })
 
+  const onMouseEnterEmail = contextSafe(({ currentTarget }) => {
+    gsap.to(emailRef.current, {
+      duration: 0.6,
+      color: COLORS.purple,
+      ease: 'power3.out',
+    })
+    gsap.to(lineRef.current, {
+      scaleX: 1,
+      duration: 0.4,
+      background: COLORS.purple,
+      ease: 'power1.inOut',
+      transformOrigin: 'left',
+    })
+  })
+
+  const onMouseLeaveEmail = contextSafe(({ currentTarget }) => {
+    // Check if the enter animation is still active
+    if (
+      !gsap.isTweening(emailRef.current) &&
+      !gsap.isTweening(lineRef.current)
+    ) {
+      // If not, start the leave animation
+      gsap.to(emailRef.current, {
+        duration: 0.6,
+        color: COLORS.black,
+        ease: 'power3.out',
+      })
+      gsap.to(lineRef.current, {
+        scaleX: 0,
+        duration: 0.6,
+        background: COLORS.black,
+        ease: 'power1.inOut',
+        transformOrigin: 'right',
+      })
+    } else {
+      // If the enter animation is still active, delay the leave animation
+      setTimeout(() => {
+        gsap.to(emailRef.current, {
+          duration: 0.6,
+          color: COLORS.black,
+          ease: 'power3.out',
+        })
+        gsap.to(lineRef.current, {
+          scaleX: 0,
+          duration: 0.6,
+          background: COLORS.black,
+          ease: 'power1.inOut',
+          transformOrigin: 'right',
+        })
+      }, 500) // Delay time may need to be adjusted
+    }
+  })
+
   return (
     <div className="contact">
       <div className="contact__header">
         <h1 className="contact-title">Think we'd be a good fit?</h1>
       </div>
-      <div className="contact__email">
+      <div
+        onMouseEnter={onMouseEnterEmail}
+        onMouseLeave={onMouseLeaveEmail}
+        className="contact__email"
+      >
         <a href="" className="contact__email-link">
-          <h2 className="contact-email">daniel@kingston.co.nz</h2>
+          <h2 ref={emailRef} className="contact-email">
+            daniel@kingston.co.nz
+          </h2>
         </a>
-        <div className="contact-email-underline"></div>
+        <div ref={lineRef} className="contact-email-underline"></div>
       </div>
       <div className="contact__links" ref={iconArea}>
         <div className="contact-links">

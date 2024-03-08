@@ -1,17 +1,58 @@
+import { useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import { gsap } from 'gsap'
+import { COLORS } from './Values'
+
 export default function Contact() {
+  const iconArea = useRef(null)
+
+  const { contextSafe } = useGSAP()
+
+  const onMouseEnter = contextSafe(({ currentTarget }) => {
+    const icons = gsap.utils.toArray('.contact-links-icon', currentTarget)
+    const detail = gsap.utils.toArray('.contact-links-detail', currentTarget)
+    gsap.to(icons, {
+      duration: 0.5,
+      y: -60,
+      ease: 'power3.out',
+      fill: COLORS.purple,
+    })
+    gsap.to(detail, {
+      color: COLORS.purple,
+    })
+  })
+
+  const onMouseLeave = contextSafe(({ currentTarget }) => {
+    const icons = gsap.utils.toArray('.contact-links-icon', currentTarget)
+    const detail = gsap.utils.toArray('.contact-links-detail', currentTarget)
+    gsap.to(icons, {
+      duration: 0.5,
+      y: 0,
+      ease: 'power3.out',
+      fill: COLORS.black,
+    })
+    gsap.to(detail, {
+      color: COLORS.black,
+    })
+  })
+
   return (
     <div className="contact">
       <div className="contact__header">
         <h1 className="contact-title">Think we'd be a good fit?</h1>
       </div>
       <div className="contact__email">
-        <h2 className="contact-email">daniel@kingston.co.nz</h2>
+        <a href="" className="contact__email-link">
+          <h2 className="contact-email">daniel@kingston.co.nz</h2>
+        </a>
         <div className="contact-email-underline"></div>
       </div>
-      <div className="contact__links">
+      <div className="contact__links" ref={iconArea}>
         <div className="contact-links">
           <a
             href="https://www.instagram.com/miscellaneousimagefile/"
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
             className="contact-link"
             target="_blank"
             rel="noopener noreferrer"
@@ -35,6 +76,8 @@ export default function Contact() {
             <p className="contact-links-detail">@miscellaneuosimagefile</p>
           </a>
           <a
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
             href="https://github.com/danielkingstonweb"
             className="contact-link"
             target="_blank"
@@ -59,6 +102,8 @@ export default function Contact() {
             <p className="contact-links-detail">@danielkingstonweb</p>
           </a>
           <a
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
             href="https://www.linkedin.com/in/daniel-kingston-web/"
             className="contact-link"
             target="_blank"

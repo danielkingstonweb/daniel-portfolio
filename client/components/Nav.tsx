@@ -40,7 +40,7 @@ export default function Nav() {
   const navTLAbou = useRef()
   const navTLCont = useRef()
 
-  // const { contextSafe } = useGSAP()
+
 
   const { contextSafe } = useGSAP(
     () => {

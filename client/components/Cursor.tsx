@@ -61,7 +61,7 @@ export default function Cursor() {
       gsap.to(cursor, {
         duration: 0.5,
         ease: 'power1.out',
-        opacity: isTargetLinkOrBtn ? 0.6 : 1,
+        opacity: isTargetLinkOrBtn ? 0.4 : 1,
         background: isTargetLinkOrBtn ? COLORS.orange : 'none',
         borderColor: isTargetLinkOrBtn ? COLORS.orange : COLORS.purple,
         mixBlendMode: isTargetLinkOrBtn ? 'difference' : 'normal',

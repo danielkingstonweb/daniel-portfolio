@@ -1,7 +1,10 @@
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
+import { CustomEase } from 'gsap/all'
 import { COLORS } from './Values'
+
+gsap.registerPlugin(CustomEase)
 
 export default function Cursor() {
   const cursorRef = useRef(null)
@@ -26,12 +29,18 @@ export default function Cursor() {
 
     const xCto = gsap.quickTo(cursor, 'left', {
       duration: 0.7,
-      ease: 'power1.out',
+      ease: CustomEase.create(
+        'custom',
+        'M0,0 C0,0 0.143,0.36 0.189,0.519 0.212,0.599 0.253,0.746 0.279,0.814 0.3,0.874 0.347,0.984 0.374,1.032 0.397,1.073 0.447,1.145 0.474,1.172 0.498,1.197 0.548,1.23 0.574,1.241 0.599,1.251 0.625,1.277 0.679,1.254 0.751,1.221 0.834,1.093 0.904,1.054 1,1 1,1 1,1 ',
+      ),
     })
 
     const yCto = gsap.quickTo(cursor, 'top', {
       duration: 0.7,
-      ease: 'power1.out',
+      ease: CustomEase.create(
+        'custom',
+        'M0,0 C0,0 0.143,0.36 0.189,0.519 0.212,0.599 0.253,0.746 0.279,0.814 0.3,0.874 0.347,0.984 0.374,1.032 0.397,1.073 0.447,1.145 0.474,1.172 0.498,1.197 0.548,1.23 0.574,1.241 0.599,1.251 0.625,1.277 0.679,1.254 0.751,1.221 0.834,1.093 0.904,1.054 1,1 1,1 1,1 ',
+      ),
     })
 
     window.addEventListener('mousemove', (e) => {

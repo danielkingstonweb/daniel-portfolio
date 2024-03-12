@@ -45,6 +45,27 @@
       background-repeat: no-repeat;
     }
 
+    &-prompt{
+      justify-content: center;
+      @include row-flex;
+      align-items: flex-end;
+    }
+
+    &-prompt-copy{
+      font-family: $body-font;
+      font-size: 2.5em;
+      font-weight: 800;
+      padding-left: 1em;
+      position: relative;
+      top: 1em;
+    }
+
+    &-link{
+      @include row-flex;
+      align-items: center;
+      gap: 1em;
+    }
+
   }
 
   &-intro{
@@ -69,13 +90,13 @@
     }
 
     &-link {
-      @include column-flex;
-      align-items: center;
-      gap: 1em;
+      font-family: $body-font;
+      font-size: 2.5rem;
+      font-weight: 800;
     }
 
     &-icon{
-      height: 6vh;
+      height: 2em;
       width: auto;
     }
 

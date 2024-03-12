@@ -4,19 +4,30 @@ import { gsap } from 'gsap'
 import { COLORS } from './Values'
 
 export default function Contact() {
-  const iconArea = useRef(null)
+  const contactArea = useRef(null)
   const emailRef = useRef(null)
   const lineRef = useRef(null)
 
-  const { contextSafe } = useGSAP(() => {
-    gsap.set(lineRef.current, {
-      scaleX: 0,
-    })
-  })
+  const { contextSafe } = useGSAP(
+    () => {
+      gsap.set(lineRef.current, {
+        scaleX: 0,
+      })
+
+      gsap.set('.contact-links-underline', {
+        scaleX: 0,
+      })
+    },
+    { scope: contactArea },
+  )
 
   const onMouseEnter = contextSafe(({ currentTarget }) => {
     const icons = gsap.utils.toArray('.contact-links-icon', currentTarget)
     const detail = gsap.utils.toArray('.contact-links-detail', currentTarget)
+    const underlines = gsap.utils.toArray(
+      '.contact-links-underline',
+      currentTarget,
+    )
     gsap.to(icons, {
       duration: 0.5,
       y: -60,
@@ -26,11 +37,22 @@ export default function Contact() {
     gsap.to(detail, {
       color: COLORS.purple,
     })
+    gsap.to(underlines, {
+      scaleX: 1,
+      duration: 0.5,
+      background: COLORS.purple,
+      ease: 'power1.inOut',
+      transformOrigin: 'left',
+    })
   })
 
   const onMouseLeave = contextSafe(({ currentTarget }) => {
     const icons = gsap.utils.toArray('.contact-links-icon', currentTarget)
     const detail = gsap.utils.toArray('.contact-links-detail', currentTarget)
+    const underlines = gsap.utils.toArray(
+      '.contact-links-underline',
+      currentTarget,
+    )
     gsap.to(icons, {
       duration: 0.5,
       y: 0,
@@ -40,6 +62,27 @@ export default function Contact() {
     gsap.to(detail, {
       color: COLORS.black,
     })
+
+    if (!gsap.isTweening(underlines)) {
+      // If not, start the leave animation
+      gsap.to(underlines, {
+        scaleX: 0,
+        duration: 0.5,
+        background: COLORS.black,
+        ease: 'power1.inOut',
+        transformOrigin: 'right',
+      })
+    } else {
+      setTimeout(() => {
+        gsap.to(underlines, {
+          scaleX: 0,
+          duration: 0.5,
+          background: COLORS.black,
+          ease: 'power1.inOut',
+          transformOrigin: 'right',
+        })
+      }, 200)
+    }
   })
 
   const onMouseEnterEmail = contextSafe(({ currentTarget }) => {
@@ -47,6 +90,7 @@ export default function Contact() {
       duration: 0.6,
       color: COLORS.purple,
       ease: 'power3.out',
+      transformOrigin: 'left',
     })
     gsap.to(lineRef.current, {
       scaleX: 1,
@@ -91,12 +135,12 @@ export default function Contact() {
           ease: 'power1.inOut',
           transformOrigin: 'right',
         })
-      }, 500) // Delay time may need to be adjusted
+      }, 400) // Delay time may need to be adjusted
     }
   })
 
   return (
-    <div className="contact">
+    <div className="contact" ref={contactArea}>
       <div className="contact__header">
         <h1 className="contact-title">Think we'd be a good fit?</h1>
       </div>
@@ -112,7 +156,7 @@ export default function Contact() {
         </a>
         <div ref={lineRef} className="contact-email-underline"></div>
       </div>
-      <div className="contact__links" ref={iconArea}>
+      <div className="contact__links">
         <div className="contact-links">
           <a
             href="https://www.instagram.com/miscellaneousimagefile/"
@@ -138,7 +182,10 @@ export default function Contact() {
                 <path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z" />
               </svg>
             </div>
-            <p className="contact-links-detail">@miscellaneuosimagefile</p>
+            <div className="contact-links__detail">
+              <p className="contact-links-detail">@miscellaneuosimagefile</p>
+              <div className="contact-links-underline"></div>
+            </div>
           </a>
           <a
             onMouseEnter={onMouseEnter}
@@ -164,7 +211,10 @@ export default function Contact() {
                 <path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z" />
               </svg>
             </div>
-            <p className="contact-links-detail">@danielkingstonweb</p>
+            <div className="contact-links__detail">
+              <p className="contact-links-detail">@danielkingstonweb</p>
+              <div className="contact-links-underline"></div>
+            </div>
           </a>
           <a
             onMouseEnter={onMouseEnter}
@@ -190,7 +240,10 @@ export default function Contact() {
                 <path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z" />
               </svg>
             </div>
-            <p className="contact-links-detail">/danielkingstonweb</p>
+            <div className="contact-links__detail">
+              <p className="contact-links-detail">/danielkingstonweb</p>
+              <div className="contact-links-underline"></div>
+            </div>
           </a>
         </div>
       </div>

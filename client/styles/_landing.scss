@@ -56,5 +56,13 @@
     font-size: 3em;
     list-style-type: none;
     padding-top: 2em;
+
+    a{
+      width: fit-content;
+    }
+  }
+
+  &-nav-item{
+    width: fit-content; 
   }
 }

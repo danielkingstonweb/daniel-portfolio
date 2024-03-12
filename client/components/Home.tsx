@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { CustomBounce } from 'gsap/CustomBounce'
 import Nav from './Nav'
 import Grain from './Grain'
+import Cursor from './Cursor'
 
 gsap.registerPlugin(MorphSVGPlugin, ScrambleTextPlugin, CustomBounce)
 
@@ -34,12 +35,12 @@ export default function Home() {
           type: 'rotational',
         },
         // delay,
-        ease: CustomBounce.create("myBounce", {
-          strength:0.9,
-          endAtStart:false,
-          squash:2,
-          squashID: "myBounce-squash"
-          }),
+        ease: CustomBounce.create('myBounce', {
+          strength: 0.9,
+          endAtStart: false,
+          squash: 2,
+          squashID: 'myBounce-squash',
+        }),
         fill: '#FE7272',
       })
       .to(
@@ -60,12 +61,12 @@ export default function Home() {
           type: 'rotational',
         },
         // delay,
-        ease: CustomBounce.create("myBounce", {
-          strength:0.9,
-          endAtStart:false,
-          squash:2,
-          squashID: "myBounce-squash"
-          }),
+        ease: CustomBounce.create('myBounce', {
+          strength: 0.9,
+          endAtStart: false,
+          squash: 2,
+          squashID: 'myBounce-squash',
+        }),
         fill: '#72CBFE',
       })
       .to(
@@ -84,12 +85,12 @@ export default function Home() {
           type: 'rotational',
         },
         // delay,
-        ease: CustomBounce.create("myBounce", {
-          strength:0.9,
-          endAtStart:false,
-          squash:2,
-          squashID: "myBounce-squash"
-          }),
+        ease: CustomBounce.create('myBounce', {
+          strength: 0.9,
+          endAtStart: false,
+          squash: 2,
+          squashID: 'myBounce-squash',
+        }),
         fill: '#B072FE',
       })
       .to(
@@ -117,12 +118,12 @@ export default function Home() {
           type: 'rotational',
         },
         // delay,
-        ease: CustomBounce.create("myBounce", {
-          strength:0.9,
-          endAtStart:false,
-          squash:2,
-          squashID: "myBounce-squash"
-          }),
+        ease: CustomBounce.create('myBounce', {
+          strength: 0.9,
+          endAtStart: false,
+          squash: 2,
+          squashID: 'myBounce-squash',
+        }),
         fill: '#FEC572',
       })
       .to(
@@ -147,8 +148,6 @@ export default function Home() {
 
   return (
     <>
-      {/* <Grain />
-      <Nav /> */}
       <div className="landing-bg">
         <div className="landing-img-box">
           <svg
@@ -298,16 +297,16 @@ export default function Home() {
           <div className="landing-bottom__left">
             <ul className="landing__nav">
               <Link to="Work">
-                <li className="landing-nav-item">DEV | DESIGN WORK</li>
+                <li className="landing-nav-item">WORK</li>
               </Link>
-              <Link to="Photography">
+              {/* <Link to="Photography">
                 <li className="landing-nav-item">PHOTOGRAPHY</li>
+              </Link> */}
+              <Link to="About">
+                <li className="landing-nav-item">ABOUT</li>
               </Link>
               <Link to="Contact">
-                <li className="landing-nav-item">GET IN TOUCH</li>
-              </Link>
-              <Link to="">
-                <li className="landing-nav-item">ABOUT</li>
+                <li className="landing-nav-item">CONTACT</li>
               </Link>
             </ul>
           </div>

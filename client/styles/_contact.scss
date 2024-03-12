@@ -1,0 +1,86 @@
+.contact{
+  padding: 1%;
+  padding-top: 20vh;
+  @include column-flex;
+  gap: 10em;
+  @include center-flex;
+
+  &-title{
+    @include display-font;
+    font-size: 4rem;
+    text-transform: uppercase;
+  }
+
+  &-email{
+    @include display-font;
+    font-size: 9rem;
+    text-transform: uppercase;
+
+    &-underline{
+      width: 100%;
+      height: 5px;
+      background: $black;
+    }
+  }
+
+  &__links{
+    height: 10vh;
+  }
+
+  &-links{
+    @include row-flex;
+    gap: 19em;
+    height: 10vh;
+
+
+    &__icons{
+      height: 6em;
+      width: 6em;
+      position: relative;
+      @include column-flex;
+      align-items: center;
+      overflow: hidden;
+
+    }
+
+    &-icon{
+      height: 6em;
+      width: 6em;
+      position: absolute;
+      top: 0;
+      text-align: center;
+      
+      &--alt{
+        top: 100%;
+        height: 5.4em;
+        width: 5.4em;
+      }
+    }
+
+    &__detail{
+      @include column-flex;
+      align-items: center;
+    }
+
+    &-detail{
+      font-family: $body-font;
+      font-size: 2.5em;
+      font-weight: 600;
+    }
+
+    &-underline{
+      width: 98%;
+      height: 2px;
+      background: $black;
+    }
+
+  }
+
+  &-link{
+    @include row-flex;
+    @include center-flex;
+    height: 10vh;
+  }
+
+  
+}

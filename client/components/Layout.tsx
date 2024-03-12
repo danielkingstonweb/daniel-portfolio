@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
+import Cursor from './Cursor'
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 export default function Layout() {
   const scrollArea = useRef(null)
@@ -24,6 +25,7 @@ export default function Layout() {
   return (
     <>
       <Grain />
+      <Cursor />
       <Nav />
       <main>
         <div id="smooth-wrapper" ref={scrollArea}>

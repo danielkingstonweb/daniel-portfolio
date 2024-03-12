@@ -3,12 +3,13 @@
   margin: 0;
   box-sizing: border-box;
   text-decoration: none;
+  cursor: url('/client/images/other/cursorDot.svg'), auto;
 }
 
 html,body,blockquote,code,h1,h2,h3,h4,h5,h6,p,pre{margin:0 !important;padding:0 !important}
 button,fieldset,form,input,legend,textarea,select{margin:0 !important;padding:0 !important}
 fieldset{border:0}
-a,a *{cursor:pointer}
+
 
 *::after, *::before{
   margin: 0; 

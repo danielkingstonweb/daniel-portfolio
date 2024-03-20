@@ -3,32 +3,83 @@ import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import ScrollPrompt from './ScrollPrompt'
 import { useRef } from 'react'
+import { COLORS } from './Values'
 
 export default function About() {
   const aboutArea = useRef(null)
   const introIcon = useRef(null)
+  const lineRef = useRef(null)
+  const linkRef = useRef(null)
 
   const { contextSafe } = useGSAP(
     () => {
-      gsap.set('.about-intro-icon', {
+      gsap.set(introIcon.current, {
         rotate: -45,
+      })
+
+      gsap.set(lineRef.current, {
+        scaleX: 0,
       })
     },
     { scope: aboutArea },
   )
 
   const onMouseEnter = contextSafe(({ currentTarget }) => {
-    gsap.to('.about-intro-icon', {
+    gsap.to(introIcon.current, {
       duration: 0.5,
       rotate: 0,
+      fill: COLORS.purple,
+      ease: 'power1.inOut',
+    })
+
+    gsap.to(linkRef.current, {
+      duration: 0.5,
+      color: COLORS.purple,
+      ease: 'power1.inOut',
+    })
+
+    gsap.to(lineRef.current, {
+      scaleX: 1,
+      duration: 0.5,
+      background: COLORS.purple,
+      ease: 'power1.inOut',
+      transformOrigin: 'left',
     })
   })
 
   const onMouseLeave = contextSafe(({ currentTarget }) => {
-    gsap.to('.about-intro-icon', {
+    gsap.to(introIcon.current, {
       duration: 0.5,
       rotate: -45,
+      fill: COLORS.black,
+      ease: 'power1.inOut',
     })
+    gsap.to(linkRef.current, {
+      duration: 0.5,
+      color: COLORS.black,
+      ease: 'power1.inOut',
+    })
+
+    if (!gsap.isTweening(lineRef.current)) {
+      // If not, start the leave animation
+      gsap.to(lineRef.current, {
+        scaleX: 0,
+        duration: 0.5,
+        background: COLORS.black,
+        ease: 'power1.inOut',
+        transformOrigin: 'right',
+      })
+    } else {
+      setTimeout(() => {
+        gsap.to(lineRef.current, {
+          scaleX: 0,
+          duration: 0.5,
+          background: COLORS.black,
+          ease: 'power1.inOut',
+          transformOrigin: 'right',
+        })
+      }, 200)
+    }
   })
 
   return (
@@ -63,9 +114,19 @@ export default function About() {
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
               >
-                <Link className="about-intro-link" to="/Contact">
-                  Let's get in touch
-                </Link>
+                <div className="about__intro-link-left">
+                  <Link
+                    ref={linkRef}
+                    className="about-intro-link"
+                    to="/Contact"
+                  >
+                    Let's get in touch
+                  </Link>
+                  <div
+                    ref={lineRef}
+                    className="about-intro-link-underline"
+                  ></div>
+                </div>
                 <svg
                   className="about-intro-icon"
                   ref={introIcon}
@@ -76,12 +137,12 @@ export default function About() {
                 </svg>
               </div>
               <div className="about__intro-prompt">
-                <p className="about__intro-prompt-copy">
-                  A collection of paid & passion work that I love
-                </p>
                 <div className="about-intro-prompt">
                   <ScrollPrompt />
                 </div>
+                <p className="about__intro-prompt-copy">
+                  A collection of paid & passion work that I love
+                </p>
               </div>
             </div>
             <div className="about__intro-bottom-right">

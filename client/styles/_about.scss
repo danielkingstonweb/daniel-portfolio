@@ -68,6 +68,10 @@
       width: fit-content;
     }
 
+    &-fit{
+      border-left: solid 1px $black;
+    }
+
   }
 
   &-intro{
@@ -88,7 +92,7 @@
       font-size: 2.5em;
       font-style: italic;
       font-weight: 800;
-      padding-left: 1em;
+      padding-left: 0.5em !important;
     }
 
     &-link {

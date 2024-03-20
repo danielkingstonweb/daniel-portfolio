@@ -4,83 +4,10 @@ import { gsap } from 'gsap'
 import ScrollPrompt from './ScrollPrompt'
 import { useRef } from 'react'
 import { COLORS } from './Values'
+import InteractiveLink from './InteractiveLink'
 
 export default function About() {
   const aboutArea = useRef(null)
-  const introIcon = useRef(null)
-  const lineRef = useRef(null)
-  const linkRef = useRef(null)
-
-  const { contextSafe } = useGSAP(
-    () => {
-      gsap.set(introIcon.current, {
-        rotate: -45,
-      })
-
-      gsap.set(lineRef.current, {
-        scaleX: 0,
-      })
-    },
-    { scope: aboutArea },
-  )
-
-  const onMouseEnter = contextSafe(({ currentTarget }) => {
-    gsap.to(introIcon.current, {
-      duration: 0.5,
-      rotate: 0,
-      fill: COLORS.purple,
-      ease: 'power1.inOut',
-    })
-
-    gsap.to(linkRef.current, {
-      duration: 0.5,
-      color: COLORS.purple,
-      ease: 'power1.inOut',
-    })
-
-    gsap.to(lineRef.current, {
-      scaleX: 1,
-      duration: 0.5,
-      background: COLORS.purple,
-      ease: 'power1.inOut',
-      transformOrigin: 'left',
-    })
-  })
-
-  const onMouseLeave = contextSafe(({ currentTarget }) => {
-    gsap.to(introIcon.current, {
-      duration: 0.5,
-      rotate: -45,
-      fill: COLORS.black,
-      ease: 'power1.inOut',
-    })
-    gsap.to(linkRef.current, {
-      duration: 0.5,
-      color: COLORS.black,
-      ease: 'power1.inOut',
-    })
-
-    if (!gsap.isTweening(lineRef.current)) {
-      // If not, start the leave animation
-      gsap.to(lineRef.current, {
-        scaleX: 0,
-        duration: 0.5,
-        background: COLORS.black,
-        ease: 'power1.inOut',
-        transformOrigin: 'right',
-      })
-    } else {
-      setTimeout(() => {
-        gsap.to(lineRef.current, {
-          scaleX: 0,
-          duration: 0.5,
-          background: COLORS.black,
-          ease: 'power1.inOut',
-          transformOrigin: 'right',
-        })
-      }, 200)
-    }
-  })
 
   return (
     <>
@@ -109,33 +36,7 @@ export default function About() {
               <div className="about__intro-fit">
                 <h3 className="about-intro-fit">Think we'd be a good fit?</h3>
               </div>
-              <div
-                className="about__intro-link"
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-              >
-                <div className="about__intro-link-left">
-                  <Link
-                    ref={linkRef}
-                    className="about-intro-link"
-                    to="/Contact"
-                  >
-                    Let's get in touch
-                  </Link>
-                  <div
-                    ref={lineRef}
-                    className="about-intro-link-underline"
-                  ></div>
-                </div>
-                <svg
-                  className="about-intro-icon"
-                  ref={introIcon}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                >
-                  <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
-                </svg>
-              </div>
+              <InteractiveLink to="/Contact" text="Let's get in touch" />
               <div className="about__intro-prompt">
                 <div className="about-intro-prompt">
                   <ScrollPrompt />

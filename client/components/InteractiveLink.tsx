@@ -4,7 +4,12 @@ import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { COLORS } from './Values'
 
-export default function InteractiveLink({ to, text }) {
+interface LinkProps {
+  to: string
+  text: string
+}
+
+export default function InteractiveLink({ to, text }: LinkProps) {
   const linkRef = useRef(null)
   const lineRef = useRef(null)
   const linkIcon = useRef(null)

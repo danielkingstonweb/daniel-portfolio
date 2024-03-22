@@ -31,16 +31,14 @@ export default function Nav() {
   const ease = 'elastic.out(1,0.2)'
 
   // NAV Layout Timelines()
-  const hamTL = useRef()
+  const hamTL = useRef<gsap.core.Timeline | null>(null)
   const openNav = useRef()
 
   // Word effects timelines
-  const navTLHome = useRef()
-  const navTLWork = useRef()
-  const navTLAbou = useRef()
-  const navTLCont = useRef()
-
-
+  const navTLHome = useRef<gsap.core.Timeline | null>(null)
+  const navTLWork = useRef<gsap.core.Timeline | null>(null)
+  const navTLAbou = useRef<gsap.core.Timeline | null>(null)
+  const navTLCont = useRef<gsap.core.Timeline | null>(null)
 
   const { contextSafe } = useGSAP(
     () => {
@@ -182,198 +180,224 @@ export default function Nav() {
 
   const timelineToggle = contextSafe(() => {
     setIsClicked(!isClicked)
-    isClicked ? hamTL.current.play() : hamTL.current.reverse()
+    if (hamTL.current !== null) {
+      isClicked ? hamTL.current.play() : hamTL.current.reverse()
+    }
   })
 
-  const onMouseEnterHome = contextSafe(({ currentTarget }) => {
-    if (navTLHome.current && navTLHome.current.isActive()) {
-      return
-    }
-    // HOME HOVER LINK ANIMATION
-    navTLHome.current = gsap.timeline().to(currentTarget, {
-      // duration,
-      // color: 'red',
-      scrambleText: {
-        text: 'HOME',
-      },
-      color: COLORS.white,
-    })
-    // HOME HOVER BG ANIMATION
-
-    navTLHome.current.to(
-      navBG.current,
-      {
+  const onMouseEnterHome = contextSafe(
+    ({ currentTarget }: { currentTarget: EventTarget & HTMLElement }) => {
+      if (navTLHome.current && navTLHome.current.isActive()) {
+        return
+      }
+      // HOME HOVER LINK ANIMATION
+      navTLHome.current = gsap.timeline().to(currentTarget, {
         // duration,
-        backgroundColor: COLORS.orange,
-      },
-      '<',
-    )
-
-    // console.log(shape1.current)
-
-    if (gsap.getProperty(navBG.current, 'backgroundColor') != COLORS.orange) {
-      // HOME HOVER SHAPE ANIMATION
-      console.log('bruh')
+        // color: 'red',
+        scrambleText: {
+          text: 'HOME',
+        },
+        color: COLORS.white,
+      })
+      // HOME HOVER BG ANIMATION
 
       navTLHome.current.to(
-        shape1.current,
+        navBG.current,
         {
-          morphSVG: {
-            shape: '.st0',
-            type: 'rotational',
-          },
-          // ease: ease,
-          fill: COLORS.red,
+          // duration,
+          backgroundColor: COLORS.orange,
         },
         '<',
       )
-    }
-  })
 
-  const onMouseLeaveHome = contextSafe(({ currentTarget }) => {
-    navTLHome.current.to(currentTarget, {
-      // duration,
-      // color: 'red',
-      scrambleText: {
-        text: 'HOME',
-      },
-      color: COLORS.black,
-    })
-  })
+      // console.log(shape1.current)
 
-  const onMouseEnterWork = contextSafe(({ currentTarget }) => {
-    navTLWork.current = gsap.timeline().to(currentTarget, {
-      // duration,
-      // color: 'red',
-      scrambleText: {
-        text: 'MY WORK',
-      },
+      if (gsap.getProperty(navBG.current, 'backgroundColor') != COLORS.orange) {
+        // HOME HOVER SHAPE ANIMATION
+        console.log('bruh')
 
-      color: COLORS.white,
-    })
-    // WORK HOVER BG ANIMATION
-    navTLWork.current.to(
-      navBG.current,
-      {
+        navTLHome.current.to(
+          shape1.current,
+          {
+            morphSVG: {
+              shape: '.st0',
+              type: 'rotational',
+            },
+            // ease: ease,
+            fill: COLORS.red,
+          },
+          '<',
+        )
+      }
+    },
+  )
+
+  const onMouseLeaveHome = contextSafe(
+    ({ currentTarget }: { currentTarget: EventTarget & HTMLElement }) => {
+      if (navTLHome.current !== null) {
+        navTLHome.current.to(currentTarget, {
+          // duration,
+          // color: 'red',
+          scrambleText: {
+            text: 'HOME',
+          },
+          color: COLORS.black,
+        })
+      }
+    },
+  )
+
+  const onMouseEnterWork = contextSafe(
+    ({ currentTarget }: { currentTarget: EventTarget & HTMLElement }) => {
+      navTLWork.current = gsap.timeline().to(currentTarget, {
         // duration,
-        backgroundColor: COLORS.red,
-      },
-      '<',
-    )
-
-    // WORK HOVER SHAPE ANIMATION
-    navTLWork.current.to(
-      shape1.current,
-      {
-        morphSVG: {
-          shape: '.st1',
-          type: 'rotational',
+        // color: 'red',
+        scrambleText: {
+          text: 'MY WORK',
         },
-        // ease: ease,
-        fill: COLORS.orange,
-      },
-      '<',
-    )
-  })
 
-  const onMouseLeaveWork = contextSafe(({ currentTarget }) => {
-    navTLWork.current.to(currentTarget, {
-      // duration,
-      // color: 'red',
-      scrambleText: {
-        text: 'MY WORK',
-      },
-      color: COLORS.black,
-    })
-  })
+        color: COLORS.white,
+      })
+      // WORK HOVER BG ANIMATION
+      navTLWork.current.to(
+        navBG.current,
+        {
+          // duration,
+          backgroundColor: COLORS.red,
+        },
+        '<',
+      )
 
-  const onMouseEnterAbou = contextSafe(({ currentTarget }) => {
-    navTLAbou.current = gsap.timeline().to(currentTarget, {
-      // duration,
-      // color: 'red',
-      scrambleText: {
-        text: 'ABOUT',
-      },
-      color: COLORS.white,
-    })
-    // ABOUT HOVER BG ANIMATION
-    navTLAbou.current.to(
-      navBG.current,
-      {
+      // WORK HOVER SHAPE ANIMATION
+      navTLWork.current.to(
+        shape1.current,
+        {
+          morphSVG: {
+            shape: '.st1',
+            type: 'rotational',
+          },
+          // ease: ease,
+          fill: COLORS.orange,
+        },
+        '<',
+      )
+    },
+  )
+
+  const onMouseLeaveWork = contextSafe(
+    ({ currentTarget }: { currentTarget: EventTarget & HTMLElement }) => {
+      if (navTLWork.current !== null) {
+        navTLWork.current.to(currentTarget, {
+          // duration,
+          // color: 'red',
+          scrambleText: {
+            text: 'MY WORK',
+          },
+          color: COLORS.black,
+        })
+      }
+    },
+  )
+
+  const onMouseEnterAbou = contextSafe(
+    ({ currentTarget }: { currentTarget: EventTarget & HTMLElement }) => {
+      navTLAbou.current = gsap.timeline().to(currentTarget, {
         // duration,
-        backgroundColor: COLORS.purple,
-      },
-      '<',
-    )
-    // ABOUT HOVER SHAPE ANIMATION
-    navTLAbou.current.to(
-      shape1.current,
-      {
-        morphSVG: {
-          shape: '.st2',
-          type: 'rotational',
+        // color: 'red',
+        scrambleText: {
+          text: 'ABOUT',
         },
-        // ease: ease,
-        fill: COLORS.blue,
-      },
-      '<',
-    )
-  })
+        color: COLORS.white,
+      })
+      // ABOUT HOVER BG ANIMATION
+      navTLAbou.current.to(
+        navBG.current,
+        {
+          // duration,
+          backgroundColor: COLORS.purple,
+        },
+        '<',
+      )
+      // ABOUT HOVER SHAPE ANIMATION
+      navTLAbou.current.to(
+        shape1.current,
+        {
+          morphSVG: {
+            shape: '.st2',
+            type: 'rotational',
+          },
+          // ease: ease,
+          fill: COLORS.blue,
+        },
+        '<',
+      )
+    },
+  )
 
-  const onMouseLeaveAbou = contextSafe(({ currentTarget }) => {
-    navTLAbou.current.to(currentTarget, {
-      // duration,
-      // color: 'red',
-      scrambleText: {
-        text: 'ABOUT',
-      },
-      color: COLORS.black,
-    })
-  })
+  const onMouseLeaveAbou = contextSafe(
+    ({ currentTarget }: { currentTarget: EventTarget & HTMLElement }) => {
+      if (navTLAbou.current !== null) {
+        navTLAbou.current.to(currentTarget, {
+          // duration,
+          // color: 'red',
+          scrambleText: {
+            text: 'ABOUT',
+          },
+          color: COLORS.black,
+        })
+      }
+    },
+  )
 
-  const onMouseEnterCont = contextSafe(({ currentTarget }) => {
-    navTLCont.current = gsap.timeline().to(currentTarget, {
-      // duration,
-      // color: 'red',
-      scrambleText: {
-        text: 'CONTACT',
-      },
-      color: COLORS.white,
-    })
-    // CONTACT HOVER BG ANIMATION
-    navTLCont.current.to(
-      navBG.current,
-      {
+  const onMouseEnterCont = contextSafe(
+    ({ currentTarget }: { currentTarget: EventTarget & HTMLElement }) => {
+      navTLCont.current = gsap.timeline().to(currentTarget, {
         // duration,
-        backgroundColor: COLORS.blue,
-      },
-      '<',
-    )
-    // CONTACT HOVER SHAPE ANIMATION
-    navTLCont.current.to(
-      shape1.current,
-      {
-        morphSVG: {
-          shape: '.st3',
-          type: 'rotational',
+        // color: 'red',
+        scrambleText: {
+          text: 'CONTACT',
         },
-        // ease: ease,
-        fill: COLORS.purple,
-      },
-      '<',
-    )
-  })
+        color: COLORS.white,
+      })
+      // CONTACT HOVER BG ANIMATION
+      navTLCont.current.to(
+        navBG.current,
+        {
+          // duration,
+          backgroundColor: COLORS.blue,
+        },
+        '<',
+      )
+      // CONTACT HOVER SHAPE ANIMATION
+      navTLCont.current.to(
+        shape1.current,
+        {
+          morphSVG: {
+            shape: '.st3',
+            type: 'rotational',
+          },
+          // ease: ease,
+          fill: COLORS.purple,
+        },
+        '<',
+      )
+    },
+  )
 
-  const onMouseLeaveCont = contextSafe(({ currentTarget }) => {
-    navTLCont.current.to(currentTarget, {
-      // duration,
-      // color: 'red',
-      scrambleText: {
-        text: 'CONTACT',
-      },
-      color: COLORS.black,
-    })
-  })
+  const onMouseLeaveCont = contextSafe(
+    ({ currentTarget }: { currentTarget: EventTarget & HTMLElement }) => {
+      if (navTLCont.current !== null) {
+        navTLCont.current.to(currentTarget, {
+          // duration,
+          // color: 'red',
+          scrambleText: {
+            text: 'CONTACT',
+          },
+          color: COLORS.black,
+        })
+      }
+    },
+  )
 
   return (
     <>

@@ -3,8 +3,8 @@ import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
 
 export default function ScrollPrompt() {
-  const scrollPromptScope = useRef()
-  const scrollPromptTL = useRef()
+  const scrollPromptScope = useRef(null)
+  const scrollPromptTL = useRef<gsap.core.Timeline>()
 
   useGSAP(
     () => {

@@ -8,6 +8,7 @@ import { CustomBounce } from 'gsap/CustomBounce'
 import Nav from './Nav'
 import Grain from './Grain'
 import Cursor from './Cursor'
+import InteractiveLink from './InteractiveLink'
 
 gsap.registerPlugin(MorphSVGPlugin, ScrambleTextPlugin, CustomBounce)
 
@@ -296,18 +297,9 @@ export default function Home() {
         <div className="landing-bottom">
           <div className="landing-bottom__left">
             <ul className="landing__nav">
-              <Link to="Work">
-                <li className="landing-nav-item">WORK</li>
-              </Link>
-              {/* <Link to="Photography">
-                <li className="landing-nav-item">PHOTOGRAPHY</li>
-              </Link> */}
-              <Link to="About">
-                <li className="landing-nav-item">ABOUT</li>
-              </Link>
-              <Link to="Contact">
-                <li className="landing-nav-item">CONTACT</li>
-              </Link>
+              <InteractiveLink to="/Work" text="Work" />
+              <InteractiveLink to="/Contact" text="Contact" />
+              <InteractiveLink to="/About" text="About" />
             </ul>
           </div>
           <div className="landing-bottom__right">

@@ -19,7 +19,7 @@
       &-left{
         flex-basis: 50%;
         @include column-flex;
-        gap: 2em;
+        gap: 3em;
       }
 
       &-right{
@@ -91,7 +91,7 @@
       font-family: $body-font;
       font-size: 2.5em;
       font-style: italic;
-      font-weight: 800;
+      font-weight: 500;
       padding-left: 0.5em !important;
     }
 

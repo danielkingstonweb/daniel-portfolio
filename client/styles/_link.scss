@@ -1,7 +1,7 @@
 .interactive {
   @include row-flex;
   align-items: center;
-  gap: 1em;
+  gap: 1rem;
   width: fit-content;
 
   &-link {
@@ -16,7 +16,7 @@
     }
 
     &-icon{
-      height: 2em;
+      height: 2rem;
       width: auto;
     }
   }

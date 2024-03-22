@@ -404,8 +404,12 @@ export default function Nav() {
       <div ref={navArea} className="nav-area">
         <div ref={toggleContainer} className="nav-bar">
           <div className="nav__logo"></div>
-          <button className="nav-toggle" id="navToggle">
-            <div onClick={timelineToggle} className="nav__hamburger">
+          <button
+            onClick={timelineToggle}
+            className="nav-toggle"
+            id="navToggle"
+          >
+            <div className="nav__hamburger">
               <svg
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,6 @@
 import request from 'superagent'
 import { DesWork } from '../../models/deswork'
-import { response } from 'express'
+// import { response } from 'express'
 
 const rootUrl = '/api/v1'
 
@@ -23,3 +23,4 @@ export async function getOneWork(workId: number): Promise<DesWork> {
     throw new Error(`Failed to fetch work with id ${workId}`)
   }
 }
+

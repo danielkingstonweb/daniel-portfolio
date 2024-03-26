@@ -8,7 +8,3 @@ export interface DesWork {
   tools: string
   images: string
 }
-
-// export interface FruitData {
-//   name: string
-// }

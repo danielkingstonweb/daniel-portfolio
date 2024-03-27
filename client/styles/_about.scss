@@ -118,4 +118,24 @@
       font-weight: 500;
     }
   }
+
+  &__content{
+    width: 100%;
+    height: fit-content;
+  }
+
+  &-item{
+    @include column-flex;
+    gap: 1em;
+    width: 25vw;
+
+    &__content{
+      @include row-flex;
+      justify-content: space-between;
+    }
+
+    &-left{
+      @include column-flex;
+    }
+  }
 }

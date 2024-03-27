@@ -43,7 +43,7 @@ export default function Cursor() {
       ),
     })
 
-    window.addEventListener('mousemove', (e) => {
+    window.addEventListener('pointermove', (e) => {
       const { target } = e
       const isTargetLinkOrBtn =
         target?.closest('a') || target?.closest('button')

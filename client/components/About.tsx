@@ -5,9 +5,60 @@ import ScrollPrompt from './ScrollPrompt'
 import { useRef } from 'react'
 import { COLORS } from './Values'
 import InteractiveLink from './InteractiveLink'
+import { useQuery } from '@tanstack/react-query'
+import { aboutWork } from '../apis/aboutWork.ts'
+import { Draggable } from 'gsap/src/all'
+import InertiaPlugin from 'gsap/InertiaPlugin'
+
+gsap.registerPlugin(Draggable, InertiaPlugin)
 
 export default function About() {
   const aboutArea = useRef(null)
+
+  const {
+    data: aboutWorkData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['about_work'],
+    queryFn: () => {
+      return aboutWork()
+    },
+  })
+
+  useGSAP(
+    () => {
+      const items = gsap.utils.toArray('.about-item') as HTMLElement[]
+
+      items.map((item) => {
+        const randomX = gsap.utils.random(0, 100)
+        const randomY = gsap.utils.random(0, 100)
+        const randomScale = gsap.utils.random(0.9, 1.5)
+
+        gsap.set(item, {
+          xPercent: randomX,
+          yPercent: randomY,
+          scale: randomScale,
+          duration: 1, // duration of the animation
+          ease: 'power1.inOut', // easing function for a smooth effect
+        })
+
+        Draggable.create(item, {
+          bounds: '.about__content',
+          inertia: true,
+        })
+      })
+    },
+    { dependencies: [aboutWorkData], scope: aboutArea },
+  )
+
+  if (isError) {
+    return <h1>Bruh shit BROKEN</h1>
+  }
+
+  if (isLoading) {
+    return <h1>bruh shit COMIN</h1>
+  }
 
   return (
     <>
@@ -51,7 +102,24 @@ export default function About() {
             </div>
           </div>
         </div>
-        <div className="about__content"></div>
+        <div className="about__content">
+          {aboutWorkData.map((work) => (
+            <>
+              <div key={work.id} className="about-item">
+                <img src={work.images} alt="" className="about-item-img" />
+                <div className="about-item__content">
+                  <div className="about-item__left">
+                    <h3 className="about-item-title">{work.title}</h3>
+                    <h3 className="about-item-subtitle">{work.subtitle}</h3>
+                  </div>
+                  <div className="about-item__right">
+                    <p className="about-item-date">{work.year}</p>
+                  </div>
+                </div>
+              </div>
+            </>
+          ))}
+        </div>
       </div>
     </>
   )

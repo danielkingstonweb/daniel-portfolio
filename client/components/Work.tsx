@@ -15,9 +15,9 @@ import ScrollTop from './ScrollTop'
 
 export default function Work() {
   const [hasLoaded, setHasLoaded] = useState()
-  const divTL = useRef()
-  const sectionTL = useRef()
-  const imgTL = useRef()
+  const divTL = useRef<gsap.core.Timeline | null>(null)
+  const sectionTL = useRef<gsap.core.Timeline | null>(null)
+  const imgTL = useRef<gsap.core.Timeline | null>(null)
   const workScope = useRef(null)
   const {
     data: myWork,

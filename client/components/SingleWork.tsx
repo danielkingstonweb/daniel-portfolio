@@ -32,8 +32,6 @@ export default function SingleWork() {
   // const imageUrls = singleWork.images.split(',')
   const imgUrl = singleWork?.images.split(',')
 
-
-
   useGSAP(
     () => {
       const images = gsap.utils.toArray('.single-img')
@@ -64,6 +62,10 @@ export default function SingleWork() {
     { dependencies: [singleWork], scope: singleWorkScope },
   )
 
+  useEffect(() => {
+    ScrollTrigger.refresh()
+  }, [])
+
   if (isError) {
     return <h1>Cuh This Shit Browken</h1>
   }
@@ -86,70 +88,61 @@ export default function SingleWork() {
 
   return (
     <>
-          <div className="single" ref={singleWorkScope}>
-            <ScrollTop />
-            <div className="single__header">
-              <h1 className="single-title">{singleWork.title}</h1>
+      <div className="single" ref={singleWorkScope}>
+        <ScrollTop />
+        <div className="single__header">
+          <h1 className="single-title">{singleWork.title}</h1>
+        </div>
+        <div className="single__back">
+          <Link to="/Work">Go Back</Link>
+        </div>
+        <div className="single__info">
+          <div className="single__info-div"></div>
+          <div className="single__info-left">
+            <div className="single__info-title">
+              <h2 className="single-info-title">Project Overview</h2>
             </div>
-            <div className="single__back">
-              <Link to="/Work">Go Back</Link>
+            <div className="single__info-field">
+              <p className="single-info-field">
+                {getFieldArray(singleWork.field)}
+              </p>
             </div>
-            <div className="single__info">
-              <div className="single__info-div"></div>
-              <div className="single__info-left">
-                <div className="single__info-title">
-                  <h2 className="single-info-title">Project Overview</h2>
-                </div>
-                <div className="single__info-field">
-                  <p className="single-info-field">
-                    {getFieldArray(singleWork.field)}
-                  </p>
-                </div>
-                <div className="single__info-description">
-                  <p className="single-info-description">
-                    {singleWork.description}
-                  </p>
-                </div>
-              </div>
-              <div className="single__info-div"></div>
-              <div className="single__info-right">
-                <div className="single__info-title">
-                  <h2 className="single-info-title">Technology | Tools</h2>
-                  <div className="single__info-tech">
-                    <p className="single__info-tech">
-                      {getFieldArray(singleWork.tools)}
-                    </p>
-                  </div>
-                </div>
-                {singleWork.links.length > 0 ? (
-                  <div className="single__info-title">
-                    <h2 className="single-info-title">Links</h2>
-                    <div className="single__info-links">
-                      <a
-                        href={singleWork.links}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        View Git Repository
-                      </a>
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-              <div className="single__info-div"></div>
-              <ScrollPrompt />
-            </div>
-            <div className="single__imgs">
-              {imgUrl?.map((img, index) => (
-                <img
-                  className="single-img"
-                  key={index}
-                  src={`/` + img}
-                  alt=""
-                />
-              ))}
+            <div className="single__info-description">
+              <p className="single-info-description">
+                {singleWork.description}
+              </p>
             </div>
           </div>
+          <div className="single__info-div"></div>
+          <div className="single__info-right">
+            <div className="single__info-title">
+              <h2 className="single-info-title">Technology | Tools</h2>
+              <div className="single__info-tech">
+                <p className="single__info-tech">
+                  {getFieldArray(singleWork.tools)}
+                </p>
+              </div>
+            </div>
+            {singleWork.links.length > 0 ? (
+              <div className="single__info-title">
+                <h2 className="single-info-title">Links</h2>
+                <div className="single__info-links">
+                  <a href={singleWork.links} target="_blank" rel="noreferrer">
+                    View Git Repository
+                  </a>
+                </div>
+              </div>
+            ) : null}
+          </div>
+          <div className="single__info-div"></div>
+          <ScrollPrompt />
+        </div>
+        <div className="single__imgs">
+          {imgUrl?.map((img, index) => (
+            <img className="single-img" key={index} src={`/` + img} alt="" />
+          ))}
+        </div>
+      </div>
     </>
   )
 }

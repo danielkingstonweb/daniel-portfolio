@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import ScrollPrompt from './ScrollPrompt'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { COLORS } from './Values'
 import InteractiveLink from './InteractiveLink'
 import { useQuery } from '@tanstack/react-query'
@@ -65,6 +65,10 @@ export default function About() {
     },
     { dependencies: [aboutWorkData], scope: aboutArea },
   )
+
+  useEffect(() => {
+    ScrollTrigger.refresh()
+  }, [])
 
   if (isError) {
     return <h1>Bruh shit BROKEN</h1>

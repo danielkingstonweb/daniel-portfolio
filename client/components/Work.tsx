@@ -48,7 +48,7 @@ export default function Work() {
               trigger: section,
               start: 'top 400',
               toggleActions: 'play none none reverse',
-              // markers: true,
+              markers: true,
             },
           })
           .to(section, {
@@ -103,8 +103,15 @@ export default function Work() {
       })
     },
 
+    
+
     { dependencies: [myWork], scope: workScope },
   )
+
+    
+  useEffect(() => {
+    ScrollTrigger.refresh()
+  }, [])
 
   if (isError) {
     return <h1>Bruh shit BROKEN</h1>
